@@ -1,17 +1,13 @@
 package com.moskalev.controller.impl;
 
-import com.moskalev.controller.CrudController;
 import com.moskalev.entities.Product;
 import com.moskalev.service.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
 @RequestMapping(path = "/api/product")
-public class ProductController implements CrudController<Product> {
+public class ProductController  {
    private ProductService productService;
 
     public ProductController(ProductService productService) {
@@ -19,31 +15,26 @@ public class ProductController implements CrudController<Product> {
     }
 
     @GetMapping(path = "/read/{id}")
-    @Override
     public Product read(@RequestParam String id) {
         return productService.read(id);
     }
 
     @GetMapping(path = "/readAll")
-    @Override
     public List<Product> readAll() {
         return productService.readAll();
     }
 
-    @GetMapping(path = "/create/{product}")
-    @Override
-    public void create(@RequestParam Product product) {
+    @PostMapping(path = "/create")
+    public void create(@RequestBody Product product) {
         productService.create(product);
 
     }
-    @GetMapping(path = "/delete/{product}")
-    @Override
-    public void delete(@RequestParam Product product) {
-        productService.delete(product);
+    @DeleteMapping
+    public void delete(@RequestParam Integer id) {
+        productService.delete(id);
 
     }
 
-    @Override
     public void update(Product product, Product newT) {
 
     }

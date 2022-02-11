@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductService implements CrudService<Product> {
+public class ProductService  {
     private ProductRepository productRepository;
 
     public ProductService(ProductRepository productRepository) {
@@ -19,12 +19,12 @@ public class ProductService implements CrudService<Product> {
     }
 
 
-    @Override
+
     public List<Product> readAll() {
         return productRepository.findAll();
     }
 
-    @Override
+
     public Product read(String t) {
         Optional<Product> productOption= productRepository.findById(Integer.valueOf(t));
         if(productOption.isPresent()){
@@ -33,17 +33,17 @@ public class ProductService implements CrudService<Product> {
         else throw new ResourseNotFoundExeption(String.format("Product with id %s not found",t));
     }
 
-    @Override
+
     public void create(Product product) {
         productRepository.save(product);
     }
 
-    @Override
-    public void delete(Product product) {
-        productRepository.deleteById(product.getId());
+
+    public void delete( Integer id) {
+        productRepository.deleteById(id);
     }
 
-    @Override
+
     public void update(Product product, Product newT) {
 
     }

@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 //@RequiredArgsConstructor
-public class ProviderService implements CrudService<Provider> {
+public class ProviderService  {
     private ProviderRepository providerRepository;
 
     public ProviderService(ProviderRepository providerRepository) {
@@ -21,12 +21,12 @@ public class ProviderService implements CrudService<Provider> {
     }
 
 
-    @Override
+
     public List<Provider> readAll() {
         return providerRepository.findAll();
     }
 
-    @Override
+
     public Provider read(String t) {
         Optional<Provider> providerOptional = providerRepository.findById(Integer.valueOf(t));
         if (providerOptional.isPresent()){
@@ -36,18 +36,18 @@ public class ProviderService implements CrudService<Provider> {
 
     }
 
-    @Override
+
     public void create(Provider provider) {
         providerRepository.save(provider);
 
     }
 
-    @Override
-    public void delete(Provider provider) {
-     providerRepository.deleteById(provider.getId());
+
+    public void delete(String provider) {
+     providerRepository.deleteByProviderName(provider);
     }
 
-    @Override
+
     public void update(Provider provider, Provider newT) {
 
     }

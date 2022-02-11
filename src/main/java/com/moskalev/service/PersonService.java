@@ -14,7 +14,7 @@ import java.util.Optional;
 
 
 @Service
-public class PersonService  implements CrudService<PersonDto> {
+public class PersonService {
     private final PersonRepository personRepository;
     private final ObjectMapper<Person,PersonDto> objectMapper;
     private final ObjectMapper<PersonDto,Person> personDtoMapper;
@@ -27,14 +27,14 @@ public class PersonService  implements CrudService<PersonDto> {
     }
 
 
-    @Override
+
     public List<PersonDto> readAll() {
      List<Person> listPersons= personRepository.findAll();
      return  objectMapper.convertList(listPersons);
 
     }
 
-    @Override
+
     public PersonDto read(String email) {
      Optional<Person>personOptional = personRepository.findByEmail(email);
 
@@ -44,21 +44,20 @@ public class PersonService  implements CrudService<PersonDto> {
        throw new ResourseNotFoundExeption(String.format("User with email %s nit found",email));
     }
 
-    @Override
+
     public void create(PersonDto o) {
       Person person=  personDtoMapper.convert(o);
       personRepository.save(person);
 
     }
 
-    @Override
-    public void delete(PersonDto o) {
-        Person person=personDtoMapper.convert(o);
-        personRepository.deleteByEmail(person.getEmail());
+
+    public void delete(String o) {
+        personRepository.deleteByEmail(o);
 
     }
 
-    @Override
+
     public void update(PersonDto o, PersonDto newT) {
     //  Person person=  personRepository.findById((Integer)o);
         Map<Integer, Person> content= (Map<Integer, Person>) personRepository.findAll();
