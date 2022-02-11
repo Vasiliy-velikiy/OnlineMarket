@@ -53,15 +53,25 @@ public class PersonService {
 
 
     public void delete(String o) {
-        personRepository.deleteByEmail(o);
-
+       // personRepository.deleteByEmail(o);
+       Optional <Person> optionalPerson=personRepository.findByEmail(o);
+       if(optionalPerson.isPresent()){
+          Person person= optionalPerson.get();
+          personRepository.delete(person);
+       } else { throw new ResourseNotFoundExeption("User not found");
+       }
     }
 
 
-    public void update(PersonDto o, PersonDto newT) {
-    //  Person person=  personRepository.findById((Integer)o);
-        Map<Integer, Person> content= (Map<Integer, Person>) personRepository.findAll();
-
-
+    public void update(String email, PersonDto newPerson) {
+        Optional<Person> optionalPerson = personRepository.findByEmail(email);
+        if (optionalPerson.isPresent()) {
+            Person person = optionalPerson.get();
+            person.setEmail(newPerson.getEmail());
+            person.setFirstName(newPerson.getFirstName());
+            person.setLastName(newPerson.getLastName());
+            personRepository.saveAndFlush(person);
+        }
+        else throw new ResourseNotFoundExeption("Person not found");
     }
 }

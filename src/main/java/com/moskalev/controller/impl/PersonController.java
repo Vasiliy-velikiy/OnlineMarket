@@ -31,14 +31,16 @@ private PersonService personService;
         personService.create(personDto);
     }
 
-    @DeleteMapping
-    public void delete(@RequestBody String email) {
+    @DeleteMapping(path = "/{email}")
+    public void delete(@PathVariable String email) {
         personService.delete(email);
 
     }
-
-    public void update(PersonDto personDto, PersonDto newT) {
-
+    @PutMapping(
+            path = "/{email}"
+    )
+    public void update(@PathVariable String email, @RequestBody PersonDto newPerson) {
+        personService.update(email, newPerson);
     }
 
 
