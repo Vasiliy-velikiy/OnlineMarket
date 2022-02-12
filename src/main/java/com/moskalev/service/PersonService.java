@@ -41,7 +41,7 @@ public class PersonService {
      if(personOptional.isPresent()){
          return objectMapper.convert(personOptional.get());
      }
-       throw new ResourseNotFoundExeption(String.format("User with email %s nit found",email));
+       throw new ResourseNotFoundExeption(String.format("User with email %s not found",email));
     }
 
 
@@ -53,7 +53,7 @@ public class PersonService {
 
 
     public void delete(String o) {
-       // personRepository.deleteByEmail(o);
+
        Optional <Person> optionalPerson=personRepository.findByEmail(o);
        if(optionalPerson.isPresent()){
           Person person= optionalPerson.get();

@@ -18,24 +18,25 @@ public class ProviderController   {
     public Provider read(@RequestParam String id) {
         return providerService.read(id);
     }
+
     @RequestMapping(path = "/readAll")
     public List<Provider> readAll() {
         return providerService.readAll();
     }
 
-    @PostMapping(path = "/create}")
+    @PostMapping(path = "/create")
     public void create(@RequestBody Provider provider) {
         providerService.create(provider);
 
     }
-    @DeleteMapping
-    public void delete(String provider) {
-        providerService.delete(provider);
+    @DeleteMapping(path = "/{nameProvider}")
+    public void delete(@PathVariable String nameProvider) {
+        providerService.delete(nameProvider);
 
     }
 
-
-    public void update(Provider provider, Provider newT) {
-
+   @PutMapping(path = "/{providerName}")
+    public void update(@PathVariable String providerName, @RequestBody Provider newProvider) {
+        providerService.update(providerName, newProvider);
     }
 }

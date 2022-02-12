@@ -36,14 +36,10 @@ private PersonService personService;
         personService.delete(email);
 
     }
-    @PutMapping(
-            path = "/{email}"
-    )
+    @PutMapping(path = "/{email}")
     public void update(@PathVariable String email, @RequestBody PersonDto newPerson) {
         personService.update(email, newPerson);
     }
-
-
 
 
 

@@ -29,13 +29,14 @@ public class ProductController  {
         productService.create(product);
 
     }
-    @DeleteMapping
-    public void delete(@RequestParam Integer id) {
-        productService.delete(id);
+    @DeleteMapping(path = "/{articleCode}")
+    public void delete(@PathVariable String articleCode) {
+        productService.delete(articleCode);
 
     }
-
-    public void update(Product product, Product newT) {
+    @PutMapping(path = "/{articleCode}")
+    public void update(@PathVariable String articleCode,@RequestBody Product newProduct) {
+        productService.update(articleCode,newProduct);
 
     }
 }

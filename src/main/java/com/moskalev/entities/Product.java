@@ -6,12 +6,13 @@ import lombok.experimental.Accessors;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 //@Accessors(chain = true)
 @Getter
 @Setter
 @Entity
-@Table(name = "product")
+@Table(name = "product" ,uniqueConstraints = {@UniqueConstraint(name = "unique_article",columnNames = "articleCode")})
 public class Product {
     @Id
     @Column(name="id")
@@ -29,6 +30,10 @@ public class Product {
 
     @Column(name = "description",columnDefinition = "TEXT")
     private String description;
+
+
+    @Column(name = "articleCode")
+    private String articleCode;
 
     @Override
     public String toString() {

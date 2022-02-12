@@ -6,5 +6,5 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 @Configuration
 public class SpringConfig {
-Object object;
+
 }

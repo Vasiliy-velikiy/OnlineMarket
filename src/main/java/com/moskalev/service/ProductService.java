@@ -1,5 +1,6 @@
 package com.moskalev.service;
 
+import com.moskalev.controller.impl.ProductController;
 import com.moskalev.entities.Person;
 import com.moskalev.entities.Product;
 import com.moskalev.exeptions.ResourseNotFoundExeption;
@@ -39,12 +40,30 @@ public class ProductService  {
     }
 
 
-    public void delete( Integer id) {
-        productRepository.deleteById(id);
+    public void delete( String article) {
+        Optional<Product> productOptional=productRepository.findByArticleCode(article);
+        if(productOptional.isPresent()){
+            Product product=productOptional.get();
+            productRepository.delete(product);
+
+        }else { throw new ResourseNotFoundExeption("Product not found");
+        }
     }
 
 
-    public void update(Product product, Product newT) {
+    public void update(String articleCode, Product newProduct) {
+        Optional<Product>productOptional=productRepository.findByArticleCode(articleCode);
+
+        if(productOptional.isPresent()){
+            Product product=productOptional.get();
+            product.setPurchasePrice(newProduct.getPurchasePrice());
+            product.setDescription(product.getDescription());
+            product.setProductName(newProduct.getProductName());
+            product.setProviderCode(newProduct.getProviderCode());
+            product.setArticleCode(newProduct.getArticleCode());
+            productRepository.saveAndFlush(product);
+        }
+        else throw new ResourseNotFoundExeption("Product not found");
 
     }
 }

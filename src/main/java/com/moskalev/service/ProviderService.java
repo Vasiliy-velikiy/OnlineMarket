@@ -43,12 +43,25 @@ public class ProviderService  {
     }
 
 
-    public void delete(String provider) {
-     providerRepository.deleteByProviderName(provider);
+    public void delete(String nameProvider) {
+     Optional<Provider>providerOptional=providerRepository.findByProviderName(nameProvider);
+        if(providerOptional.isPresent()){
+            Provider provider=providerOptional.get();
+            providerRepository.delete(provider);
+
+        }else throw new ResourseNotFoundExeption("Provider not found");
     }
 
 
-    public void update(Provider provider, Provider newT) {
+    public void update(String providerName, Provider newProvider) {
+        Optional<Provider>optionalProvider=providerRepository.findByProviderName(providerName);
+        if(optionalProvider.isPresent()){
+            Provider provider=optionalProvider.get();
+            provider.setProviderName(newProvider.getProviderName());
+            provider.setLegalAddress(newProvider.getLegalAddress());
+            provider.setTelefonNumber(newProvider.getTelefonNumber());
+            providerRepository.saveAndFlush(provider);
+        } else throw new ResourseNotFoundExeption("Provider not found");
 
     }
 }
