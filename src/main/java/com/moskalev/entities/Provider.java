@@ -6,8 +6,13 @@ import lombok.experimental.Accessors;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-/*класс поставщика */
-//@Accessors(chain = true)
+
+
+/**@version  1.1
+ * @author Vasiliy Moskalev
+ * This is class describes providers who produces concrete product
+ * */
+
 @Entity
 @Getter
 @Setter
@@ -22,9 +27,11 @@ public class Provider {
     @Column(name = "providerName")
     private String providerName;
 
+    /**String field describes contacting address where locating  concrete provider*/
     @Column(name = "legalAddress")
     private String legalAddress;
 
+     /**String field describes contacting telefon numbers of concrete provider*/
     @Column(name= "telefonNumber")
     private String telefonNumber;
 

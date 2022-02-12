@@ -12,11 +12,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-
+/**@version  1.1
+ * @author Vasiliy Moskalev
+ * Class service for person which provides interaction with personRepository  */
 @Service
 public class PersonService {
     private final PersonRepository personRepository;
     private final ObjectMapper<Person,PersonDto> objectMapper;
+
+    /**filed describes object for convert*/
     private final ObjectMapper<PersonDto,Person> personDtoMapper;
 
 
@@ -27,14 +31,16 @@ public class PersonService {
     }
 
 
-
+   /**@return list of all Person in table person*/
     public List<PersonDto> readAll() {
      List<Person> listPersons= personRepository.findAll();
      return  objectMapper.convertList(listPersons);
 
     }
 
-
+    /**@param email certain email that is unique
+     * @return certain Person by email
+     * @throws ResourseNotFoundExeption if  User not found*/
     public PersonDto read(String email) {
      Optional<Person>personOptional = personRepository.findByEmail(email);
 
@@ -45,13 +51,16 @@ public class PersonService {
     }
 
 
+    /**@param o class of PersonDto
+     *   */
     public void create(PersonDto o) {
       Person person=  personDtoMapper.convert(o);
       personRepository.save(person);
 
     }
 
-
+      /**@param o -certain email
+       *  @throws ResourseNotFoundExeption if  User not found*/
     public void delete(String o) {
 
        Optional <Person> optionalPerson=personRepository.findByEmail(o);
@@ -62,7 +71,9 @@ public class PersonService {
        }
     }
 
-
+  /**@param email -certain email
+   * @param newPerson -new Person that we want to put in database
+   * @throws ResourseNotFoundExeption if Person not found*/
     public void update(String email, PersonDto newPerson) {
         Optional<Person> optionalPerson = personRepository.findByEmail(email);
         if (optionalPerson.isPresent()) {

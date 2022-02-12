@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+/**@version  1.1
+ * @author Vasiliy Moskalev
+ * Class service for product which provides interaction with prodcutRepository  */
 @Service
 public class ProductService  {
     private ProductRepository productRepository;
@@ -20,26 +22,30 @@ public class ProductService  {
     }
 
 
-
+    /**@return list of all Product in table product*/
     public List<Product> readAll() {
         return productRepository.findAll();
     }
 
-
-    public Product read(String t) {
-        Optional<Product> productOption= productRepository.findById(Integer.valueOf(t));
+    /**@param article - certain article that is unique
+     * @return certain Product by article
+     * @throws ResourseNotFoundExeption if  Product not found*/
+    public Product read(String article) {
+        Optional<Product> productOption= productRepository.findByArticleCode(article);
         if(productOption.isPresent()){
             return productOption.get();
         }
-        else throw new ResourseNotFoundExeption(String.format("Product with id %s not found",t));
+        else throw new ResourseNotFoundExeption(String.format("Product with article: %s not found",article));
     }
 
-
+    /**@param product -class that we want to create**/
     public void create(Product product) {
         productRepository.save(product);
     }
 
 
+    /**@param article -certain article that is unique
+     *  @throws ResourseNotFoundExeption if  Product not found*/
     public void delete( String article) {
         Optional<Product> productOptional=productRepository.findByArticleCode(article);
         if(productOptional.isPresent()){
@@ -50,7 +56,9 @@ public class ProductService  {
         }
     }
 
-
+    /**@param articleCode -certain email
+     * @param newProduct -new Prodcut that we want to put in database
+     * @throws ResourseNotFoundExeption if Product not found*/
     public void update(String articleCode, Product newProduct) {
         Optional<Product>productOptional=productRepository.findByArticleCode(articleCode);
 

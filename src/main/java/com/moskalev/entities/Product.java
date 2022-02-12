@@ -8,6 +8,10 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/**@version  1.1
+ * @author Vasiliy Moskalev
+ * This is class describes products that  customers wants to buy on OnlineMarket
+ * */
 //@Accessors(chain = true)
 @Getter
 @Setter
@@ -22,16 +26,19 @@ public class Product {
     @Column(name="name")
     String productName;
 
+    /**String field describes price which costumers can buy product*/
     @Column(name="price")
-    Integer purchasePrice;//закупочная цена
+    Integer purchasePrice;
 
+  /**String field describes provider who produce this product*/
     @Column(name = "provider_id")
     private Integer providerCode;
 
+    /**String field describes main properties of product*/
     @Column(name = "description",columnDefinition = "TEXT")
     private String description;
 
-
+    /**String field describes unique code  which distinguishes  one product from another */
     @Column(name = "articleCode")
     private String articleCode;
 

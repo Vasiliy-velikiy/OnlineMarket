@@ -3,6 +3,10 @@ package com.moskalev.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+
+/** @version  1.1
+ * @author Vasiliy Moskalev
+ * Class for display information about person without password and id*/
 @Getter
 @Setter
 public class PersonDto {
