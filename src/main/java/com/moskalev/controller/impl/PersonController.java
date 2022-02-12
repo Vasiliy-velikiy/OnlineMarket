@@ -2,9 +2,12 @@ package com.moskalev.controller.impl;
 
 import com.moskalev.dto.PersonDto;
 
+import com.moskalev.entities.Person;
 import com.moskalev.service.PersonService;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 /**
  * @version 1.1
@@ -34,10 +37,16 @@ private PersonService personService;
         return personService.readAll();
     }
 
-    /**@param personDto -object that we want to create*/
-    @PostMapping(path = "/create")
-    public void create(@RequestBody PersonDto personDto) {
+    ///**@param personDto -object that we want to create*/
+   /* @PostMapping(path = "/create")
+    public void create(@RequestBody PersonDto personDto) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         personService.create(personDto);
+    }*/
+
+    /**@param person -object that we want to create*/
+    @PostMapping(path = "/create")
+    public void create(@RequestBody Person person) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        personService.create(person);
     }
 
 

@@ -30,9 +30,10 @@ public class Person {
      * in OnlineMarket has only one email*/
     @Column(name="email")
     private String email;
-   // /**String field describes password of personal aria in OnlineMarket*/
-    //@Column(name = "password")
-  // private String password;
+
+    /**String field describes password of personal aria in OnlineMarket*/
+    @Column(name = "password")
+   private String password;
 
     /**@return description of customers*/
     @Override
@@ -44,4 +45,6 @@ public class Person {
                 ", email='" + email + '\'' +
                 '}';
     }
+
+
 }

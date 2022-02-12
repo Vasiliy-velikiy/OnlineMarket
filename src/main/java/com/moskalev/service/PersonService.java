@@ -8,6 +8,9 @@ import com.moskalev.mapper.ObjectMapper;
 import com.moskalev.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -53,8 +56,11 @@ public class PersonService {
 
     /**@param o class of PersonDto
      *   */
-    public void create(PersonDto o) {
-      Person person=  personDtoMapper.convert(o);
+    public void create(Person o) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+     // Person person=  personDtoMapper.convert(o);
+        Person person=o;
+      PasswordEncryption passwordEncryption=new PasswordEncryption();
+      person.setPassword(passwordEncryption.hashToHex(person.getPassword(), Optional.of("mysolt")));
       personRepository.save(person);
 
     }
