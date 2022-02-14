@@ -5,7 +5,7 @@ import lombok.Setter;
 
 
 /** @version  1.1
- * @author Vasiliy Moskalev
+ * @author Vasiliy  Moskalev
  * @since 09.02.22
  * Class for display information about person without password and id*/
 @Getter

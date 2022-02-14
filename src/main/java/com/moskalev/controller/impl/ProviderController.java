@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 /**
  * @version 1.1
- *  * @author Vasiliy Moskalev
+ *  * @author Vasiliy  Moskalev
  *  @since 09.02.22
  * Class controller for handling requests to providerrepository through the providerservice */
 @RestController

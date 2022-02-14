@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**@version  1.1
- * @author Vasiliy Moskalev
+ * @author Vasiliy  Moskalev
  * @since 03.02.22
  * This is class describes products that  customers wants to buy on OnlineMarket
  * */

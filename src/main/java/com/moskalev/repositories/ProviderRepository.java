@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 /**@version  1.1
- * @author Vasiliy Moskalev
+ * @author Vasiliy  Moskalev
  * @since 01.02.22
  * Class repository for Provider*/
 @Repository

@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.List;
 
 /**@version  1.1
- * @author Vasiliy Moskalev
+ *  @author Vasiliy Moskalev
  * @since 05.02.22
  * Class service for provider which provides interaction with providerRepository  */
 @Service

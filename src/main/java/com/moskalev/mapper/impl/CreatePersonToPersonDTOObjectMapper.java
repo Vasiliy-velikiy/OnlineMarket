@@ -5,7 +5,7 @@ import com.moskalev.entities.Person;
 import com.moskalev.mapper.BaseObjectMapper;
 import org.springframework.stereotype.Component;
 /**@version  1.1
- * @author Vasiliy Moskalev
+ * @author Vasiliy  Moskalev
  * @since 08.02.22
  * This class converts Person class to PersonDto*/
 @Component("toPersonDtoMapper")

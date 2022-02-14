@@ -6,7 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 /**@version  1.1
- * @author Vasiliy Moskalev
+ * @author Vasiliy  Moskalev
  * @since 13.02.22
  * This is class describes roles of person( Admin, client and other)
  * */

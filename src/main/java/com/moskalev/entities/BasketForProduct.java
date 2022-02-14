@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.List;
 
 /**@version  1.1
- * @author Vasiliy Moskalev
+ * @author Vasiliy  Moskalev
  * @since 03.02.22
  * This is class describes basket For Product  */
 @Getter
