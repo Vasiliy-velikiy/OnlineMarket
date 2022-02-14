@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * @version 1.1
  *  * @author Vasiliy Moskalev
+ *  @since 09.02.22
  * Class controller for handling requests to persontrepository through the persontservice */
 
 @RestController

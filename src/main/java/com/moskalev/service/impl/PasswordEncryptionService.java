@@ -9,6 +9,7 @@ import java.util.Optional;
 /**
  * @version 1.1
  *  * @author Vasiliy Moskalev
+ *  @since 10.02.22
  *  Class for Encryption password */
 public class PasswordEncryptionService {
 

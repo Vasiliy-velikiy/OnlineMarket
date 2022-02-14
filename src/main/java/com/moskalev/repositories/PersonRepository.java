@@ -10,6 +10,7 @@ import java.util.Optional;
 
 /**@version  1.1
  * @author Vasiliy Moskalev
+ * @since 01.02.22
  * Class repository for Person*/
 
 //репозиторий является интерфейсом, который наследуется от другого интерфейса JpaRepository<>

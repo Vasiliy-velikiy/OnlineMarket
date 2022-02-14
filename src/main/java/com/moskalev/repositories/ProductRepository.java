@@ -7,7 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 /**@version  1.1
  * @author Vasiliy Moskalev
- * Class repository for Prdocut*/
+ * @since 01.02.22
+ * Class repository for Prodoct*/
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {

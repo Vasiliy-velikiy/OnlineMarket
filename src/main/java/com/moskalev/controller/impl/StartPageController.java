@@ -10,6 +10,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**@version 1.1
  *  * @author Vasiliy Moskalev
+ *  @since 14.02.22
  * Controller - Start page for person. This class provides interaction with Sign Up and Sign In*/
 
 

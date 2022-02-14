@@ -10,6 +10,7 @@ import javax.persistence.*;
 
 /**@version  1.1
  * @author Vasiliy Moskalev
+ * @since 03.02.22
  * This is class describes providers who produces concrete product
  * */
 

@@ -10,7 +10,10 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
-/**Class service  for create New person This class calls create method from PersonService */
+/**@version  1.1
+ * @author Vasiliy Moskalev
+ * @since 14.02.22
+ * Class service  for create New person This class calls create method from PersonService */
 @Service
 public class SignService  {
   private PersonService personService;
