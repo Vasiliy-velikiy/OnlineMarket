@@ -1,13 +1,13 @@
-package com.moskalev.service;
+package com.moskalev.service.impl;
 
 import com.moskalev.dto.PersonDto;
 import com.moskalev.entities.Person;
-
 import com.moskalev.exeptions.ResourseNotFoundExeption;
 import com.moskalev.mapper.ObjectMapper;
 import com.moskalev.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -18,7 +18,7 @@ import java.util.Optional;
  * @author Vasiliy Moskalev
  * Class service for person which provides interaction with personRepository  */
 @Service
-public class PersonService {
+public class PersonService  {
     private final PersonRepository personRepository;
     private final ObjectMapper<Person,PersonDto> objectMapper;
 
@@ -26,7 +26,7 @@ public class PersonService {
     private final ObjectMapper<PersonDto,Person> personDtoMapper;
 
 
-    public PersonService(PersonRepository personRepository, @Qualifier("toPersonDtoMapper") ObjectMapper<Person,PersonDto> objectMapper,@Qualifier("toPersonMapper")ObjectMapper<PersonDto,Person> personDtoMapper) {
+    public PersonService(PersonRepository personRepository, @Qualifier("toPersonDtoMapper") ObjectMapper<Person,PersonDto> objectMapper, @Qualifier("toPersonMapper")ObjectMapper<PersonDto,Person> personDtoMapper) {
         this.personRepository = personRepository;
         this.objectMapper = objectMapper;
         this.personDtoMapper=personDtoMapper;
@@ -57,7 +57,6 @@ public class PersonService {
      *  @throws ResourseNotFoundExeption if User already exists
      *  else-create new User  */
     public void create(Person o) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-     // Person person=  personDtoMapper.convert(o);
         Person person=o;
         Optional<Person> personOptional=personRepository.findByEmail(o.getEmail());
         if(!personOptional.isPresent()) { //

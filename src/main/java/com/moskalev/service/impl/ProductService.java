@@ -1,13 +1,9 @@
-package com.moskalev.service;
+package com.moskalev.service.impl;
 
-import com.moskalev.controller.impl.ProductController;
-import com.moskalev.entities.Person;
 import com.moskalev.entities.Product;
 import com.moskalev.exeptions.ResourseNotFoundExeption;
 import com.moskalev.repositories.ProductRepository;
-import jdk.nashorn.internal.runtime.options.Option;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 /**@version  1.1

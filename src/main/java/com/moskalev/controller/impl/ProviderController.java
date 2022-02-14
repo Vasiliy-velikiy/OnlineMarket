@@ -1,7 +1,7 @@
 package com.moskalev.controller.impl;
 
 import com.moskalev.entities.Provider;
-import com.moskalev.service.ProviderService;
+import com.moskalev.service.impl.ProviderService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

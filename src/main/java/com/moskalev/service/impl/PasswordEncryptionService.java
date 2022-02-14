@@ -1,4 +1,4 @@
-package com.moskalev.service;
+package com.moskalev.service.impl;
 
     import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

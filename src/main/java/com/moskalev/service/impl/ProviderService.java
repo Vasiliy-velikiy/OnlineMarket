@@ -1,11 +1,9 @@
-package com.moskalev.service;
+package com.moskalev.service.impl;
 
-import com.moskalev.entities.Person;
-import com.moskalev.entities.Product;
 import com.moskalev.entities.Provider;
 import com.moskalev.exeptions.ResourseNotFoundExeption;
 import com.moskalev.repositories.ProviderRepository;
-import org.springframework.data.domain.Example;
+
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.List;

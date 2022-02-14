@@ -3,7 +3,7 @@ package com.moskalev.controller.impl;
 import com.moskalev.dto.PersonDto;
 
 import com.moskalev.entities.Person;
-import com.moskalev.service.PersonService;
+import com.moskalev.service.impl.PersonService;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
@@ -19,7 +19,7 @@ import java.util.List;
 public class PersonController  {
 private PersonService personService;
 
-    public PersonController(PersonService personService) {
+    public PersonController(com.moskalev.service.impl.PersonService personService) {
         this.personService = personService;
     }
 

@@ -1,14 +1,16 @@
 package com.moskalev.controller.impl;
 
-import com.moskalev.dto.PasswordDto;
+import com.moskalev.dto.PasswordAndEmailDto;
 import com.moskalev.entities.Person;
-import com.moskalev.service.SignService;
+import com.moskalev.service.impl.SignService;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
-/**Controller - Start page for person. This class provides interaction with Sign Up and Sign In*/
+/**@version 1.1
+ *  * @author Vasiliy Moskalev
+ * Controller - Start page for person. This class provides interaction with Sign Up and Sign In*/
 
 
 @RestController
@@ -20,26 +22,17 @@ public class StartPageController {
     }
 
 
-
+    /**@param newPerson -Person who wants signUp in server*/
     @PostMapping(path = "/signUp")
     public void signUp(@RequestBody Person newPerson) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         signService.signUp(newPerson);
 
     }
-
-    /*@PostMapping(path = "/signIn/{email}")
-    public void sighIn(@PathVariable String email, @RequestBody PasswordDto passwordDto) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        System.out.println("password befor encoding");
-        System.out.println(passwordDto.getPassword());
-        signService.signIn(email,passwordDto.getPassword());
-
-    }*/
-
-@PostMapping(path = "/signIn/{email}")
-    public void sighIn(@PathVariable String email, @RequestBody String password) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        System.out.println("password befor encoding");
-        System.out.println(password);
+    /**@param passwordAndEmail -person transfers already exist information about personal area*/
+@PostMapping(path = "/signIn")
+    public void sighIn( @RequestBody PasswordAndEmailDto passwordAndEmail) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        String password=passwordAndEmail.getPassword();
+        String email=passwordAndEmail.getEmail();
         signService.signIn(email,password);
-
     }
 }
