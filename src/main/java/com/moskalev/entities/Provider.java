@@ -36,11 +36,4 @@ public class Provider {
     private String telefonNumber;
 
 
-    @Override
-    public String toString() {
-        return "Provider{" +
-                "id=" + id +
-                ", providerName='" + providerName + '\'' +
-                '}';
-    }
 }

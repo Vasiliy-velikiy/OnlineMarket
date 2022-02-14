@@ -6,9 +6,15 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Optional;
 
+/**
+ * @version 1.1
+ *  * @author Vasiliy Moskalev
+ *  Class for Encryption password */
+public class PasswordEncryptionService {
 
-public class PasswordEncryption {
-
+    /**@param hashMe -password wich person entered in service
+     * @param salt -key for coding password
+     * @return hash value*/
         public String hashToHex(String hashMe, Optional<String> salt) throws NoSuchAlgorithmException, UnsupportedEncodingException {
             byte[] bytes = hash(hashMe, salt);
 
@@ -20,10 +26,16 @@ public class PasswordEncryption {
             return sp.toString().toUpperCase();
         }
 
+    /**@param hashMe -password wich person entered in service
+     * @param salt -key for coding password
+     * @return hash value*/
         public String hashToBase64(String hashMe, Optional<String> salt) throws NoSuchAlgorithmException, UnsupportedEncodingException {
             return Base64.getEncoder().encodeToString(hash(hashMe, salt)).toUpperCase();
         }
 
+    /**@param hashMe -password wich person entered in service
+     * @param salt -key for coding password
+     * @return mass of byte for next coding*/
         public byte[] hash(String hashMe, Optional<String> salt)
                 throws NoSuchAlgorithmException, UnsupportedEncodingException {
             MessageDigest md = MessageDigest.getInstance("SHA-512");

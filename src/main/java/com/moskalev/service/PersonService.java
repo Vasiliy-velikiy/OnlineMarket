@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 /**@version  1.1
@@ -59,8 +58,8 @@ public class PersonService {
     public void create(Person o) throws UnsupportedEncodingException, NoSuchAlgorithmException {
      // Person person=  personDtoMapper.convert(o);
         Person person=o;
-      PasswordEncryption passwordEncryption=new PasswordEncryption();
-      person.setPassword(passwordEncryption.hashToHex(person.getPassword(), Optional.of("mysolt")));
+      PasswordEncryptionService passwordEncryptionService =new PasswordEncryptionService();
+      person.setPassword(passwordEncryptionService.hashToHex(person.getPassword(), Optional.of("mysolt")));
       personRepository.save(person);
 
     }

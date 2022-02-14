@@ -5,6 +5,8 @@ import lombok.experimental.Accessors;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Objects;
 
 /**@version  1.1
  * @author Vasiliy Moskalev
@@ -35,16 +37,20 @@ public class Person {
     @Column(name = "password")
    private String password;
 
-    /**@return description of customers*/
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
+    @ManyToMany()
+    @JoinTable(name = "person_role",
+               joinColumns = @JoinColumn(name = "person_id",referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id"))
+    private List<Role> roleList;
+
+
+    /**Certain person has many baskets, certain basket has ONE person*/
+    @OneToMany(mappedBy = "owner")
+    private List<BasketForProduct> basketForProductList;
+
+
+
+
 
 
 }

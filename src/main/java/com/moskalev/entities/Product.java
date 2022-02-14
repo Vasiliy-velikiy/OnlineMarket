@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 /**@version  1.1
  * @author Vasiliy Moskalev
@@ -42,13 +43,11 @@ public class Product {
     @Column(name = "articleCode")
     private String articleCode;
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", productName='" + productName + '\'' +
-                ", purchasePrice=" + purchasePrice +
-                ", providerCode=" + providerCode +
-                '}';
-    }
+    /**Each product will have number of basket, when custemers will put for purchase*/
+    @ManyToOne()
+    @JoinColumn(name = "basketForProductId")
+    private BasketForProduct basketForProductNumber;
+
+
+
 }

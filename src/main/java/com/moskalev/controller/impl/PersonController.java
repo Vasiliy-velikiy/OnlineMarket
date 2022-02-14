@@ -37,11 +37,7 @@ private PersonService personService;
         return personService.readAll();
     }
 
-    ///**@param personDto -object that we want to create*/
-   /* @PostMapping(path = "/create")
-    public void create(@RequestBody PersonDto personDto) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        personService.create(personDto);
-    }*/
+
 
     /**@param person -object that we want to create*/
     @PostMapping(path = "/create")
@@ -56,7 +52,6 @@ private PersonService personService;
         personService.delete(email);
 
     }
-
     /**@param email  -certain name that is unique
      * @param newPerson-object that we want to update*/
     @PutMapping(path = "/{email}")
