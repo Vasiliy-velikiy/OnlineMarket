@@ -53,15 +53,19 @@ public class PersonService {
     }
 
 
-    /**@param o class of PersonDto
-     *   */
+    /**@param o class of Person
+     *  @throws ResourseNotFoundExeption if User already exists
+     *  else-create new User  */
     public void create(Person o) throws UnsupportedEncodingException, NoSuchAlgorithmException {
      // Person person=  personDtoMapper.convert(o);
         Person person=o;
-      PasswordEncryptionService passwordEncryptionService =new PasswordEncryptionService();
-      person.setPassword(passwordEncryptionService.hashToHex(person.getPassword(), Optional.of("mysolt")));
-      personRepository.save(person);
-
+        Optional<Person> personOptional=personRepository.findByEmail(o.getEmail());
+        if(!personOptional.isPresent()) { //
+            PasswordEncryptionService passwordEncryptionService = new PasswordEncryptionService();
+            person.setPassword(passwordEncryptionService.hashToHex(person.getPassword(), Optional.of("mysolt")));
+            personRepository.save(person);
+        }
+        else throw  new ResourseNotFoundExeption(String.format("User with email %s already exists",o.getEmail()));
     }
 
       /**@param o -certain email
