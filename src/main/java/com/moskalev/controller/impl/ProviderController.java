@@ -11,7 +11,7 @@ import java.util.List;
  *  @since 09.02.22
  * Class controller for handling requests to providerrepository through the providerservice */
 @RestController
-@RequestMapping(path = "/api/provider")
+@RequestMapping(path = "/api/providers")
 public class ProviderController   {
     private ProviderService providerService;
 

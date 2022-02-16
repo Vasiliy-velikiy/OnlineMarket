@@ -16,7 +16,7 @@ import java.util.List;
  * Class controller for handling requests to persontrepository through the persontservice */
 
 @RestController
-@RequestMapping(path = "/api/person")
+@RequestMapping(path = "/api/persons")
 public class PersonController  {
 private PersonService personService;
 

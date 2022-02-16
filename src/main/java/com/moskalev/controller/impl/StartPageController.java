@@ -15,7 +15,7 @@ import java.security.NoSuchAlgorithmException;
 
 
 @RestController
-@RequestMapping(path = "/api/startPage")
+@RequestMapping(path = "/api/startPages")
 public class StartPageController {
     private SignService signService;
     public StartPageController(SignService signService) {

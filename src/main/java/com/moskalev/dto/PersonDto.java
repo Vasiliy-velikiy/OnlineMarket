@@ -1,7 +1,9 @@
 package com.moskalev.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.Value;
 
 
 /** @version  1.1
@@ -17,7 +19,6 @@ public class PersonDto {
     private String email;
 
     public PersonDto() {
-
     }
 
     public PersonDto(String firstName, String lastName, String email) {

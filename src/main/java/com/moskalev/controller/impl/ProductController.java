@@ -12,7 +12,7 @@ import java.util.List;
  *  @since 09.02.22
  * Class controller for handling requests to productrepository through the productservice */
 @RestController
-@RequestMapping(path = "/api/product")
+@RequestMapping(path = "/api/products")
 public class ProductController  {
    private ProductService productService;
 

@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 /**@version  1.1
  * @author Vasiliy  Moskalev
  *@since 08.02.22
- * interface for Mapper which have common coverting method to list*/
+ * interface for Mapper which have common converting method to list*/
 public interface ObjectMapper<IN, OUT>  {
     /**@param obj inner class
      * @return outer class*/
