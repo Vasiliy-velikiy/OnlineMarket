@@ -18,7 +18,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@Table(name = "product" ,uniqueConstraints = {@UniqueConstraint(name = "unique_article",columnNames = "articleCode")})
+@Table(name = "product" ,uniqueConstraints = {@UniqueConstraint(name = "unique_article",columnNames = "article_code")})
 public class Product {
     @Id
     @Column(name="id")
@@ -41,12 +41,12 @@ public class Product {
     private String description;
 
     /**String field describes unique code  which distinguishes  one product from another */
-    @Column(name = "articleCode")
+    @Column(name = "article_code")
     private String articleCode;
 
     /**Each product will have number of basket, when custemers will put for purchase*/
     @ManyToOne()
-    @JoinColumn(name = "basketForProductId")
+    @JoinColumn(name = "basket_for_productId")
     private BasketForProduct basketForProductNumber;
 
 

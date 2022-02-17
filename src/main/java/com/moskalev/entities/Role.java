@@ -24,29 +24,6 @@ public class Role {
     @ManyToMany(mappedBy = "roleList")
     private List<Person> persons;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Person> getUsers() {
-        return persons;
-    }
-
-    public void setUsers(List<Person> users) {
-        this.persons = users;
-    }
 
    /* @Override
     public boolean equals(Object o) {

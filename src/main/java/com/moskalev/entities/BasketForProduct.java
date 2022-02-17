@@ -2,7 +2,6 @@ package com.moskalev.entities;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.bytebuddy.agent.builder.AgentBuilder;
 
 
 import javax.persistence.*;
@@ -14,7 +13,7 @@ import java.util.List;
  * This is class describes basket For Product  */
 @Getter
 @Setter
-@Table(name = "basketForProduct")
+@Table(name = "basket_for_product",uniqueConstraints = {@UniqueConstraint(name = "unique_id",columnNames = "id")})
 @Entity
 public class BasketForProduct {
 
@@ -25,7 +24,7 @@ public class BasketForProduct {
 
     /**each basket belongs certain person */
    @ManyToOne()
-   @JoinColumn(name = "ownerId")
+   @JoinColumn(name = "owner_id")
     private Person owner;
 
 
@@ -33,7 +32,5 @@ public class BasketForProduct {
     /**basket has certain list of product, which the user wants to buy*/
     @OneToMany(mappedBy = "basketForProductNumber")
     private List<Product> productList;
-
-
 
 }

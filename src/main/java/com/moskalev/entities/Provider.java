@@ -17,7 +17,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "provider" ,uniqueConstraints = {@UniqueConstraint(name = "unique_providerName",columnNames = "providerName")})
+@Table(name = "provider" ,uniqueConstraints = {@UniqueConstraint(name = "unique_provider_name",columnNames = "provider_name")})
 public class Provider {
 
     @Id
@@ -25,15 +25,15 @@ public class Provider {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "providerName")
+    @Column(name = "provider_name")
     private String providerName;
 
     /**String field describes contacting address where locating  concrete provider*/
-    @Column(name = "legalAddress")
+    @Column(name = "legal_address")
     private String legalAddress;
 
      /**String field describes contacting telefon numbers of concrete provider*/
-    @Column(name= "telefonNumber")
+    @Column(name= "telefon_number")
     private String telefonNumber;
 
 
