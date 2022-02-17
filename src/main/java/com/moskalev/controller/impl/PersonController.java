@@ -6,6 +6,7 @@ import com.moskalev.entities.Person;
 import com.moskalev.service.impl.PersonService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -42,7 +43,7 @@ private PersonService personService;
 
     /**@param person -object that we want to create*/
     @PostMapping(path = "/create")
-    public void create(@RequestBody Person person) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public void create(@Valid @RequestBody Person person) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         personService.create(person);
     }
 

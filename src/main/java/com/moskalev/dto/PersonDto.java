@@ -1,9 +1,14 @@
 package com.moskalev.dto;
 
-import lombok.Builder;
+
 import lombok.Getter;
 import lombok.Setter;
-import lombok.Value;
+
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+
+import javax.validation.constraints.Size;
 
 
 /** @version  1.1
@@ -13,9 +18,14 @@ import lombok.Value;
 @Getter
 @Setter
 public class PersonDto {
-
+    @NotBlank
+    @Size(max = 300)
     private String firstName;
+    @NotBlank
+    @Size(max = 300)
     private String lastName;
+    @NotEmpty
+    @Size(max = 30)
     private String email;
 
     public PersonDto() {

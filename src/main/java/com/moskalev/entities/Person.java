@@ -1,10 +1,13 @@
 package com.moskalev.entities;
 
+import com.moskalev.validation.annotaton.Email;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,10 +34,14 @@ public class Person {
 
     /**String field describes contacting email address concrete person. This is unique fields because personal aria
      * in OnlineMarket has only one email*/
+    @NotBlank
+    @Email
     @Column(name="email")
     private String email;
 
     /**String field describes password of personal aria in OnlineMarket*/
+    @NotBlank
+    @Size(min = 7, max = 300)
     @Column(name = "password")
    private String password;
 
