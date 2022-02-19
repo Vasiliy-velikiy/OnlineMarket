@@ -13,7 +13,7 @@ import java.util.List;
  * This is class describes basket For Product  */
 @Getter
 @Setter
-@Table(name = "basket_for_product",uniqueConstraints = {@UniqueConstraint(name = "unique_id",columnNames = "id")})
+@Table(name = "baskets",uniqueConstraints = {@UniqueConstraint(name = "unique_id",columnNames = "id")})
 @Entity
 public class BasketForProduct {
 

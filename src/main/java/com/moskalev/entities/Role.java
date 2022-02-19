@@ -11,7 +11,7 @@ import java.util.List;
  * This is class describes roles of person( Admin, client and other)
  * */
 @Entity
-@Table(name = "role")
+@Table(name = "roles")
 @Getter
 @Setter
 public class Role {

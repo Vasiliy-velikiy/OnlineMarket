@@ -16,8 +16,8 @@ import java.util.Optional;
  * Class service  for create New person This class calls create method from PersonService */
 @Service
 public class SignService  {
-  private PersonService personService;
-  private PersonRepository personRepository;
+  private final PersonService personService;
+  private final PersonRepository personRepository;
 
     public SignService(com.moskalev.service.impl.PersonService personService, PersonRepository personRepository) {
         this.personService = personService;

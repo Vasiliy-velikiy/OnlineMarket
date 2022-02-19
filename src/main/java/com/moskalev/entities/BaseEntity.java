@@ -25,7 +25,7 @@ public abstract class BaseEntity {
         }
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)){
             return false;
-        }//потому что вместо ожидаемого обьекта может придти прокси
+        }//потому что вместо ожидаемого обьекта может придти прокси и сравнить его с прокси
         BaseEntity that = (BaseEntity) o;
         return Objects.equals(id, that.id);
     }

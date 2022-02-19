@@ -2,8 +2,7 @@ package com.moskalev.entities;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Accessors;
-import org.hibernate.annotations.GenericGenerator;
+
 
 import javax.persistence.*;
 
@@ -11,13 +10,13 @@ import javax.persistence.*;
 /**@version  1.1
  * @author Vasiliy  Moskalev
  * @since 03.02.22
- * This is class describes providers who produces concrete product
+ * This is class describes providers who providers concrete product
  * */
 
 @Entity
 @Getter
 @Setter
-@Table(name = "provider" ,uniqueConstraints = {@UniqueConstraint(name = "unique_provider_name",columnNames = "provider_name")})
+@Table(name = "providers" ,uniqueConstraints = {@UniqueConstraint(name = "unique_provider_name",columnNames = "provider_name")})
 public class Provider {
 
     @Id

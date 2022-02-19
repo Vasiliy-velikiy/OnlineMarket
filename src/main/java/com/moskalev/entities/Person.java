@@ -17,7 +17,7 @@ import java.util.Objects;
  * This is class describes customers who  reqister on OnlineMarket*/
 @Getter
 @Setter
-@Table(name = "person" ,uniqueConstraints = {@UniqueConstraint(name = "unique_email",columnNames = "email")})
+@Table(name = "persons" ,uniqueConstraints = {@UniqueConstraint(name = "unique_email",columnNames = "email")})
 @Entity
 public class Person {
 
@@ -46,7 +46,7 @@ public class Person {
    private String password;
 
     @ManyToMany()
-    @JoinTable(name = "person_role",
+    @JoinTable(name = "persons_roles",
                joinColumns = @JoinColumn(name = "person_id",referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id"))
     private List<Role> roleList;
