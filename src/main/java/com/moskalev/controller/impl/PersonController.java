@@ -1,84 +1,91 @@
 package com.moskalev.controller.impl;
 
-import com.moskalev.dto.PersonDto;
 
+import com.moskalev.dto.Impl.PersonDto;
 import com.moskalev.entities.Person;
-import com.moskalev.service.impl.PersonService;
+import com.moskalev.service.PersonService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
-/**
- * @version 1.1
- * @author Vasiliy Moskalev
- *  @since 09.02.22
- * Class controller for handling requests to persontrepository through the persontservice */
 
+
+/**
+ * @author Vasiliy Moskalev
+ * @version 1.1
+ * @since 09.02.22
+ * Class controller for handling requests to personRepository through the personService
+ */
 @RestController
 @RequestMapping(path = "/api/persons")
-@Tag(name="Person",description = "this is short description")
-@ApiResponse(responseCode = "500",description = "Internal error")
-@ApiResponse(responseCode = "400",description = "Validation failed")
-@ApiResponse(responseCode = "404",description = "User not found")
-public class PersonController  {
-private PersonService personService;
+@Tag(name = "Person", description = "this is short description")
+@ApiResponse(responseCode = "500", description = "Internal error")
+@ApiResponse(responseCode = "400", description = "Validation failed")
+@ApiResponse(responseCode = "404", description = "User not found")
+public class PersonController {
+    private final PersonService personService;
 
-    public PersonController(com.moskalev.service.impl.PersonService personService) {
+    public PersonController(PersonService personService) {
         this.personService = personService;
     }
 
-
-    /**@param email -certain email that is unique
-     * @return -certain product that we want to get */
+    /**
+     * @param email -certain email that is unique
+     * @return -certain product that we want to get
+     */
     @Operation(description = "Find user by email")
-    @ApiResponse(responseCode = "200",description = "User successfully found")
-    @ApiResponse(responseCode = "500",description = "User not found")
-    @GetMapping(path = "/read/{email}")
-    public PersonDto read(@PathVariable String email) {
+    @ApiResponse(responseCode = "200", description = "User successfully found")
+    @ApiResponse(responseCode = "500", description = "User not found")
+    @GetMapping(path = "/email")
+    public Person read(@RequestParam(name = "email") String email) {
         return personService.read(email);
     }
 
     /**
-     * @return list of Person*/
+     * @return page of Persons
+     */
     @Operation(description = "Find all users")
-    @ApiResponse(responseCode = "200",description = "All Users successfully found")
-    @GetMapping(path="/read/all")
-    public List<PersonDto> readAll() {
+    @ApiResponse(responseCode = "200", description = "All Users successfully found")
+    @GetMapping
+    public Page<Person> readAll() {
         return personService.readAll();
     }
 
 
-
-    /**@param person -object that we want to create*/
+    /**
+     * @param person -object that we want to create
+     */
     @Operation(description = "Create user")
-    @ApiResponse(responseCode = "200",description = "User successfully created")
-    @PostMapping(path = "/create")
-    public void create(@Valid @RequestBody Person person) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    @ApiResponse(responseCode = "200", description = "User successfully created")
+    @PostMapping
+    public void create(@Valid @RequestBody PersonDto person) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         personService.create(person);
     }
 
-
-    /**@param email  -object that we want to delete*/
+    /**
+     * @param id -object that we want to delete
+     */
     @Operation(description = "Delete user by email")
-    @ApiResponse(responseCode = "204",description = "User successfully deleted")
-    @DeleteMapping(path = "/{email}")
-    public void delete(@PathVariable String email) {
-        personService.delete(email);
-
+    @ApiResponse(responseCode = "204", description = "User successfully deleted")
+    @DeleteMapping(path = "/{id}")
+    public void delete(@PathVariable Integer id) {
+        personService.delete(id);
     }
-    /**@param email  -certain name that is unique
-     * @param newPerson-object that we want to update*/
+
+    /**
+     * @param id -certain name that is unique
+     * @param newPerson-object that we want to update
+     */
     @Operation(description = "Update user")
-    @ApiResponse(responseCode = "200",description = "User successfully updated")
-    @PutMapping(path = "/{email}")
-    public void update(@PathVariable String email, @RequestBody PersonDto newPerson) {
-        personService.update(email, newPerson);
+    @ApiResponse(responseCode = "200", description = "User successfully updated")
+    @PutMapping(path = "/{id}")
+    public void update(@PathVariable Integer id, @RequestBody PersonDto newPerson) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        personService.update(id, newPerson);
     }
-
 }

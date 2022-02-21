@@ -1,52 +1,57 @@
 package com.moskalev.service.impl;
 
-    import java.io.UnsupportedEncodingException;
+import org.springframework.stereotype.Service;
+
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 import java.util.Optional;
 
 /**
+ * @author Vasiliy  Moskalev
  * @version 1.1
- *  *  @author Vasiliy  Moskalev
- *  @since 10.02.22
- *  Class for Encryption password */
+ * @since 10.02.22
+ * Class for Encryption password
+ */
+@Service
 public class PasswordEncryptionService {
 
-    /**@param hashMe -password wich person entered in service
-     * @param salt -key for coding password
-     * @return hash value*/
-        public String hashToHex(String hashMe, Optional<String> salt) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-            byte[] bytes = hash(hashMe, salt);
+    /**
+     * @param hashMe -password that person entered in service
+     * @param salt   -key for coding password
+     * @return hash value
+     * newString-Here append symbol from bit shift
+     */
+    public String hashToHex(String hashMe, Optional<String> salt) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        byte[] bytes = hash(hashMe, salt);
 
-            StringBuilder sp = new StringBuilder();
+        StringBuilder newString = new StringBuilder();
 
-            for (int i = 0; i < bytes.length; i++) {
-                sp.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            return sp.toString().toUpperCase();
+        for (int i = 0; i < bytes.length; i++) {
+            newString.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
         }
-
-    /**@param hashMe -password wich person entered in service
-     * @param salt -key for coding password
-     * @return hash value*/
-        public String hashToBase64(String hashMe, Optional<String> salt) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-            return Base64.getEncoder().encodeToString(hash(hashMe, salt)).toUpperCase();
-        }
-
-    /**@param hashMe -password wich person entered in service
-     * @param salt -key for coding password
-     * @return mass of byte for next coding*/
-        public byte[] hash(String hashMe, Optional<String> salt)
-                throws NoSuchAlgorithmException, UnsupportedEncodingException {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-
-            md.update(hashMe.getBytes("UTF-8"));
-            salt.ifPresent(s -> {
-                try { md.update(s.getBytes("UTF-8")); } catch (Exception e) {throw new RuntimeException(e);}
-            });
-
-            return md.digest();
-        }
+        return newString.toString().toUpperCase();
     }
+
+    /**
+     * @param hashMe -password that person entered in service
+     * @param salt   -key for coding password
+     * @return mass of byte for next coding
+     * The Java MessageDigest class represents a cryptographic hash function that can compute a message digest from binary data.
+     */
+    public byte[] hash(String hashMe, Optional<String> salt)
+            throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
+
+        messageDigest.update(hashMe.getBytes("UTF-8"));
+        salt.ifPresent(s -> {
+            try {
+                messageDigest.update(s.getBytes("UTF-8"));
+            } catch (Exception message) {
+                throw new RuntimeException(message);
+            }
+        });
+        return messageDigest.digest();
+    }
+}
 
