@@ -1,27 +1,26 @@
 package com.moskalev.dto.Impl;
 
-
 import com.moskalev.entities.Role;
-import com.moskalev.validation.annotaton.Email;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.extern.jackson.Jacksonized;
 
-
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import static lombok.AccessLevel.PRIVATE;
 
 /** @version  1.1
  * @author Vasiliy  Moskalev
  * @since 09.02.22
  * Class  for transfer user data for create in Database*/
+@AllArgsConstructor(access = PRIVATE)
 @Getter
 @Setter
 @Schema(name = "PersonInfo",description = "Info about person")
-public class PersonDto {
+public class PersonToCreateDto {
 
     @Schema(description = "first name", required = true)
     @NotBlank
@@ -47,5 +46,4 @@ public class PersonDto {
     @Schema(description = "password", required = true)
     @NotNull
     private Role role;
-
 }

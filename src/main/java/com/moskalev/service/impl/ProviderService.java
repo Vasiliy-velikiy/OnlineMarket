@@ -13,7 +13,6 @@ import java.util.List;
  * @since 05.02.22
  * Class service for provider which provides interaction with providerRepository  */
 @Service
-//@RequiredArgsConstructor
 public class ProviderService  {
     private ProviderRepository providerRepository;
 

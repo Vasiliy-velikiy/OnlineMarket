@@ -2,9 +2,12 @@ package com.moskalev;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
-import org.springframework.context.annotation.Configuration;
-
+/**
+ * @author Vasiliy Moskalev
+ * @version 1.1
+ * @since 01.02.22
+ * Class for running spring boot application
+ */
 @SpringBootApplication
 public class Application {
     public static void main(String[] args)  {

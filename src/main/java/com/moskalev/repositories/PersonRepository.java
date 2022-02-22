@@ -1,12 +1,8 @@
 package com.moskalev.repositories;
 
 import com.moskalev.entities.Person;
-import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -17,6 +13,7 @@ import java.util.Optional;
  */
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Integer> {
+
     /**
      * @param email that is unique
      * @return object of Optional for  null-safety

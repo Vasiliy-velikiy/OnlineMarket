@@ -14,6 +14,7 @@ import java.util.Optional;
  */
 @Repository
 public interface ProviderRepository extends JpaRepository<Provider, Integer> {
+
     /**
      * @param name that is unique
      * @return object of Optional for  null-safety

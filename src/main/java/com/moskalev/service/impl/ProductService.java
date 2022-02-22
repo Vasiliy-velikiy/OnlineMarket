@@ -54,7 +54,7 @@ public class ProductService  {
     }
 
     /**@param articleCode -certain email
-     * @param newProduct -new Prodcut that we want to put in database
+     * @param newProduct -new Product that we want to put in database
      * @throws ResourseNotFoundExeption if Product not found*/
     public void update(String articleCode, Product newProduct) {
         Optional<Product>productOptional=productRepository.findByArticleCode(articleCode);

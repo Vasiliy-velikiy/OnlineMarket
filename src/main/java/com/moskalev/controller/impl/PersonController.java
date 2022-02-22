@@ -1,7 +1,8 @@
 package com.moskalev.controller.impl;
 
 
-import com.moskalev.dto.Impl.PersonDto;
+import com.moskalev.dto.Impl.PersonToCreateDto;
+import com.moskalev.dto.Impl.PersonToUpdateDto;
 import com.moskalev.entities.Person;
 import com.moskalev.service.PersonService;
 
@@ -64,7 +65,7 @@ public class PersonController {
     @Operation(description = "Create user")
     @ApiResponse(responseCode = "200", description = "User successfully created")
     @PostMapping
-    public void create(@Valid @RequestBody PersonDto person) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public void create(@Valid @RequestBody PersonToCreateDto person) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         personService.create(person);
     }
 
@@ -84,8 +85,8 @@ public class PersonController {
      */
     @Operation(description = "Update user")
     @ApiResponse(responseCode = "200", description = "User successfully updated")
-    @PutMapping(path = "/{id}")
-    public void update(@PathVariable Integer id, @RequestBody PersonDto newPerson) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    @PatchMapping(path = "/{id}")
+    public void update(@PathVariable Integer id, @RequestBody PersonToUpdateDto newPerson) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         personService.update(id, newPerson);
     }
 }

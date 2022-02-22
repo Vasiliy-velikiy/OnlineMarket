@@ -20,7 +20,7 @@ public class EmailValidator implements ConstraintValidator<Email, String> {
     }
 
     /**
-     * @param value                              -email
+     * @param value -email
      * @param constraintValidatorContext-context where makes validation
      * @return valid or not valid
      */

@@ -1,13 +1,13 @@
 package com.moskalev.service.impl;
 
-import com.moskalev.dto.Impl.PersonDto;
+import com.moskalev.dto.Impl.PersonToCreateDto;
+import com.moskalev.dto.Impl.PersonToUpdateDto;
 import com.moskalev.entities.Person;
 import com.moskalev.exeptions.PersonException;
-import com.moskalev.mapper.ObjectMapper;
+import com.moskalev.mapper.PersMapper;
 import com.moskalev.repositories.PersonRepository;
 import com.moskalev.service.PersonService;
 import org.hibernate.Hibernate;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -29,18 +29,22 @@ import java.util.Optional;
  */
 @Service
 @Transactional
-public class PersonServiceImpl implements PersonService<Person> {
+public class PersonServiceImpl implements PersonService {
     private final PersonRepository personRepository;
+
     /**
      * filed describes object for convert
      */
-    private final ObjectMapper<Person, PersonDto> objectMapper;
+    private final PersMapper objectMapper;
+
     /**
      * filed describes object for encoding
      */
     private final PasswordEncryptionService passwordEncryptionService;
+    private static final String saltForEncryptingPassword = "mySalt";
 
-    public PersonServiceImpl(PersonRepository personRepository, @Qualifier("PersonMapper") ObjectMapper<Person, PersonDto> objectMapper, PasswordEncryptionService passwordEncryptionService) {
+
+    public PersonServiceImpl(PersonRepository personRepository, PersMapper objectMapper, PasswordEncryptionService passwordEncryptionService) {
         this.personRepository = personRepository;
         this.objectMapper = objectMapper;
         this.passwordEncryptionService = passwordEncryptionService;
@@ -78,18 +82,18 @@ public class PersonServiceImpl implements PersonService<Person> {
     }
 
     /**
-     * @param newPersonDto -class of Person.
+     * @param newPersonToCreateDto -class of Person.
      * @throws PersonException if User already exists
      *                         else-create new User. We encrypt passing password and set new password to Database
      */
-    public void create(PersonDto newPersonDto) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        Optional<Person> templatePerson = personRepository.findByEmail(newPersonDto.getEmail());
+    public void create(PersonToCreateDto newPersonToCreateDto) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        Optional<Person> templatePerson = personRepository.findByEmail(newPersonToCreateDto.getEmail());
         if (!templatePerson.isPresent()) {
-            newPersonDto.setPassword(passwordEncryptionService.hashToHex(newPersonDto.getPassword(), Optional.of("mySalt")));
-            Person newPerson = objectMapper.convertFromDto(newPersonDto);
+            newPersonToCreateDto.setPassword(passwordEncryptionService.hashToHex(newPersonToCreateDto.getPassword(), Optional.of(saltForEncryptingPassword)));
+            Person newPerson = objectMapper.fromDto(newPersonToCreateDto);
             personRepository.save(newPerson);
         } else {
-            throw new PersonException(String.format("User with email %s already exists", newPersonDto.getEmail()));
+            throw new PersonException(String.format("User with email %s already exists", newPersonToCreateDto.getEmail()));
         }
     }
 
@@ -108,20 +112,19 @@ public class PersonServiceImpl implements PersonService<Person> {
     }
 
     /**
-     * @param id -certain email
+     * @param id        -certain email
      * @param newPerson -new Person that we want to put in database
      * @throws PersonException if Person not found
      */
-    public void update(Integer id, PersonDto newPerson) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public void update(Integer id, PersonToUpdateDto newPerson) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         Optional<Person> optionalPerson = personRepository.findById(id);
         if (optionalPerson.isPresent()) {
-            Person person = optionalPerson.get();
-            person.setEmail(newPerson.getEmail());
-            person.setFirstName(newPerson.getFirstName());
-            person.setLastName(newPerson.getLastName());
-            person.setRole(newPerson.getRole());
-            person.setPassword(passwordEncryptionService.hashToHex(newPerson.getPassword(), Optional.of("mySalt")));
-            personRepository.saveAndFlush(person);
+            Person target = optionalPerson.get();
+            Person source = objectMapper.fromUpdateDto(newPerson);
+            if (source.getPassword() != null) {
+                source.setPassword(passwordEncryptionService.hashToHex(source.getPassword(), Optional.of(saltForEncryptingPassword)));
+            }
+            personRepository.save(objectMapper.merge(target, source));
         } else {
             throw new PersonException("Person not found");
         }
