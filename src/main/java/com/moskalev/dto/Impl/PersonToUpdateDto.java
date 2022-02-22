@@ -1,9 +1,7 @@
 package com.moskalev.dto.Impl;
 
 import com.moskalev.entities.Role;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -12,8 +10,8 @@ import static lombok.AccessLevel.PRIVATE;
  * @since 09.02.22
  * Class  for transfer user data for update in Database*/
 @Value
-@Builder
-@Jacksonized
+@Getter
+@Setter
 @AllArgsConstructor(access = PRIVATE)
 public class PersonToUpdateDto {
     String firstName;

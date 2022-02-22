@@ -3,7 +3,7 @@ package com.moskalev.dto.Impl;
 import com.moskalev.entities.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
-import lombok.extern.jackson.Jacksonized;
+
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -43,7 +43,7 @@ public class PersonToCreateDto {
     @Size(min = 7, max = 300)
     private String password;
 
-    @Schema(description = "password", required = true)
+    @Schema(description = "role", required = true)
     @NotNull
     private Role role;
 }
