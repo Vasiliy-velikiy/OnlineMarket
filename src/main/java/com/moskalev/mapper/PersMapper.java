@@ -14,28 +14,27 @@ import org.mapstruct.*;
 @Mapper
 public interface PersMapper {
 
-//    /**
-//     * @param source -PersonToCreateDto object
-//     * @return Person object
-//     */
+    /**
+     * @param source -PersonToCreateDto object
+     * @return Person object
+     */
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "basketForProductList", ignore = true)
     Person fromDto(PersonToCreateDto source);
 
-//    /**
-//     * @param source -PersonToUpdateDto object
-//     * @return Person object
-//     */
+    /**
+     * @param source -PersonToUpdateDto object
+     * @return Person object
+     */
     @Mapping(target = "id", ignore = true)
   @Mapping(target = "basketForProductList", ignore = true)
    Person fromUpdateDto(PersonToUpdateDto source);
 
-//    /**
-//     * @param source -object that will merge
-//     * @param target -target object
-//     * @return new Person object
-//     */
-
+    /**
+     * @param source -object that will merge
+     * @param target -target object
+     * @return new Person object
+     */
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Person merge(@MappingTarget Person target, Person source);
 }

@@ -25,7 +25,7 @@ import java.security.NoSuchAlgorithmException;
  */
 @RestController
 @RequestMapping(path = "/api/persons")
-@Tag(name = "Person", description = "this is short description")
+@Tag(name = "Person", description = "this is person controller")
 @ApiResponse(responseCode = "500", description = "Internal error")
 @ApiResponse(responseCode = "400", description = "Validation failed")
 @ApiResponse(responseCode = "404", description = "User not found")
@@ -53,6 +53,7 @@ public class PersonController {
      */
     @Operation(description = "Find all users")
     @ApiResponse(responseCode = "200", description = "All Users successfully found")
+    @ApiResponse(responseCode = "500", description = "Users not found")
     @GetMapping
     public Page<Person> readAll() {
         return personService.readAll();
@@ -72,7 +73,7 @@ public class PersonController {
     /**
      * @param id -object that we want to delete
      */
-    @Operation(description = "Delete user by email")
+    @Operation(description = "Delete user by id")
     @ApiResponse(responseCode = "204", description = "User successfully deleted")
     @DeleteMapping(path = "/{id}")
     public void delete(@PathVariable Integer id) {

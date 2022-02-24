@@ -5,6 +5,10 @@ import lombok.Setter;
 
 
 import javax.persistence.*;
+import java.util.List;
+
+import static javax.persistence.CascadeType.*;
+import static lombok.AccessLevel.PRIVATE;
 
 
 /**
@@ -34,8 +38,14 @@ public class Provider {
     private String legalAddress;
 
     /**
-     * String field describes contacting telefon numbers of concrete provider
+     * String field describes contacting telephone numbers of concrete provider
      */
-    @Column(name = "telefon_number")
-    private String telefonNumber;
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Setter(PRIVATE)
+    @OneToMany(mappedBy = "provider",
+            orphanRemoval = true,
+            cascade = {PERSIST, MERGE, DETACH, REFRESH})
+    List <Product> productsOfProvider;
 }

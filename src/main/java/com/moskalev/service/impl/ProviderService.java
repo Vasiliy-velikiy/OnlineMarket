@@ -44,30 +44,30 @@ public class ProviderService  {
 
     }
 
-    /**@param nameProvider -certain providerName that is unique
-     *  @throws ResourseNotFoundExeption if  Product not found*/
-    public void delete(String nameProvider) {
-     Optional<Provider>providerOptional=providerRepository.findByProviderName(nameProvider);
-        if(providerOptional.isPresent()){
-            Provider provider=providerOptional.get();
-            providerRepository.delete(provider);
+//    /**@param nameProvider -certain providerName that is unique
+//     *  @throws ResourseNotFoundExeption if  Product not found*/
+//    public void delete(String nameProvider) {
+//     Optional<Provider>providerOptional=providerRepository.findByProviderName(nameProvider);
+//        if(providerOptional.isPresent()){
+//            Provider provider=providerOptional.get();
+//            providerRepository.delete(provider);
+//
+//        }else throw new ResourseNotFoundExeption("Provider not found");
+//    }
 
-        }else throw new ResourseNotFoundExeption("Provider not found");
-    }
-
-    /**@param providerName -certain providerName that is unique
-     * @param newProvider -new Provider that we want to put in database
-     * @throws ResourseNotFoundExeption if Provider not found*/
-    public void update(String providerName, Provider newProvider) {
-        Optional<Provider>optionalProvider=providerRepository.findByProviderName(providerName);
-        if(optionalProvider.isPresent()){
-            Provider provider=optionalProvider.get();
-            provider.setProviderName(newProvider.getProviderName());
-            provider.setLegalAddress(newProvider.getLegalAddress());
-            provider.setTelefonNumber(newProvider.getTelefonNumber());
-            providerRepository.saveAndFlush(provider);
-        } else throw new ResourseNotFoundExeption("Provider not found");
-
-    }
+//    /**@param providerName -certain providerName that is unique
+//     * @param newProvider -new Provider that we want to put in database
+//     * @throws ResourseNotFoundExeption if Provider not found*/
+//    public void update(String providerName, Provider newProvider) {
+//        Optional<Provider>optionalProvider=providerRepository.findByProviderName(providerName);
+//        if(optionalProvider.isPresent()){
+//            Provider provider=optionalProvider.get();
+//            provider.setProviderName(newProvider.getProviderName());
+//            provider.setLegalAddress(newProvider.getLegalAddress());
+//            provider.setTelefonNumber(newProvider.getTelefonNumber());
+//            providerRepository.saveAndFlush(provider);
+//        } else throw new ResourseNotFoundExeption("Provider not found");
+//
+//    }
 }
 

@@ -12,7 +12,7 @@ import static javax.persistence.EnumType.STRING;
  * @author Vasiliy  Moskalev
  * @version 1.1
  * @since 03.02.22
- * This is class describes customers who  reqister on OnlineMarket
+ * This is class describes customers who are a requester on OnlineMarket
  */
 @Getter
 @Setter

@@ -46,20 +46,20 @@ public class ProviderController {
         providerService.create(provider);
     }
 
-    /**
-     * @param nameProvider -object that we want to delete
-     */
-    @DeleteMapping(path = "/{nameProvider}")
-    public void delete(@PathVariable String nameProvider) {
-        providerService.delete(nameProvider);
-    }
-
-    /**
-     * @param providerName       -certain name that is unique
-     * @param newProvider-object that we want to update
-     */
-    @PutMapping(path = "/{providerName}")
-    public void update(@PathVariable String providerName, @RequestBody Provider newProvider) {
-        providerService.update(providerName, newProvider);
-    }
+//    /**
+//     * @param nameProvider -object that we want to delete
+//     */
+//    @DeleteMapping(path = "/{nameProvider}")
+//    public void delete(@PathVariable String nameProvider) {
+//        providerService.delete(nameProvider);
+//    }
+//
+//    /**
+//     * @param providerName       -certain name that is unique
+//     * @param newProvider-object that we want to update
+//     */
+//    @PutMapping(path = "/{providerName}")
+//    public void update(@PathVariable String providerName, @RequestBody Provider newProvider) {
+//        providerService.update(providerName, newProvider);
+//    }
 }

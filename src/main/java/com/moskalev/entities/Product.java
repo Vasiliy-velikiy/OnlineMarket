@@ -2,12 +2,11 @@ package com.moskalev.entities;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Accessors;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.Objects;
+
+
+import static javax.persistence.FetchType.LAZY;
 
 /**
  * @author Vasiliy  Moskalev
@@ -32,13 +31,14 @@ public class Product {
      * String field describes price which costumers can buy product
      */
     @Column(name = "price")
-    Integer purchasePrice;
+    Double purchasePrice;
 
     /**
      * String field describes provider who produce this product
      */
-    @Column(name = "provider_id")
-    private Integer providerCode;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "provider_id")
+    private Provider provider;
 
     /**
      * String field describes main properties of product
@@ -53,7 +53,7 @@ public class Product {
     private String articleCode;
 
     /**
-     * Each product will have number of basket, when custemers will put for purchase
+     * Each product will have number of basket, when customers will put for purchase
      */
     @ManyToOne()
     @JoinColumn(name = "basket_for_product_id")

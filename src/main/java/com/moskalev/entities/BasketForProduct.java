@@ -35,5 +35,5 @@ public class BasketForProduct {
      * basket has certain list of product, which the user wants to buy
      */
     @OneToMany(mappedBy = "basketForProductNumber")
-    private List<Product> productList;
+    private List<Product> products;
 }

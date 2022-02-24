@@ -19,7 +19,7 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor(access = PRIVATE)
 @Getter
 @Setter
-@Schema(name = "PersonInfo",description = "Info about person")
+@Schema(name = "PersonCreateInfo",description = "Info about person to create")
 public class PersonToCreateDto {
 
     @Schema(description = "first name", required = true)

@@ -41,6 +41,9 @@ public class PersonServiceImpl implements PersonService {
      * filed describes object for encoding
      */
     private final PasswordEncryptionService passwordEncryptionService;
+    /**
+     * filed describes final variable for encoding-this is salt for byte shift
+     */
     private static final String saltForEncryptingPassword = "mySalt";
 
 

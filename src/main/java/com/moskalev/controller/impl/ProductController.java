@@ -1,10 +1,15 @@
 package com.moskalev.controller.impl;
 
+import com.moskalev.dto.Impl.ProductToCreateDto;
+import com.moskalev.dto.Impl.ProductToUpdateDto;
 import com.moskalev.entities.Product;
-import com.moskalev.service.impl.ProductService;
+import com.moskalev.service.impl.ProductServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 /**
  * @version 1.1
@@ -14,56 +19,72 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(path = "/api/products")
+@Tag(name = "Product", description = "this is product controller")
+@ApiResponse(responseCode = "500", description = "Internal error")
+@ApiResponse(responseCode = "400", description = "Validation failed")
+@ApiResponse(responseCode = "404", description = "Product not found")
 public class ProductController {
-    private final ProductService productService;
+    private final ProductServiceImpl productServiceImpl;
 
-    public ProductController(ProductService productService) {
-        this.productService = productService;
+    public ProductController(ProductServiceImpl productServiceImpl) {
+        this.productServiceImpl = productServiceImpl;
     }
 
     /**
      * @param article -certain article that is unique
      * @return -certain product that we want to get
      */
-    @RequestMapping(path = "/read/{article}")
-    public Product read(@PathVariable String article) {
-        return productService.read(article);
+    @Operation(description = "Find user by email")
+    @ApiResponse(responseCode = "200", description = "Product successfully found")
+    @ApiResponse(responseCode = "500", description = "Product not found")
+    @GetMapping(path = "/article")
+    public Product read(@RequestParam String article) {
+        return productServiceImpl.read(article);
     }
-
 
     /**
      * @return list of Product
      */
-    @GetMapping(path = "/readAll")
-    public List<Product> readAll() {
-        return productService.readAll();
+    @Operation(description = "Find all products")
+    @ApiResponse(responseCode = "200", description = "All products successfully found")
+    @ApiResponse(responseCode = "500", description = "Products not found")
+    @GetMapping
+    public Page<Product> readAll() {
+        return productServiceImpl.readAll();
     }
 
     /**
-     * @param product -object that we want to create
+     * @param newProduct -object that we want to create
      */
-    @PostMapping(path = "/create")
-    public void create(@RequestBody Product product) {
-        productService.create(product);
+    @Operation(description = "Create product")
+    @ApiResponse(responseCode = "200", description = "  Product successfully created")
+    @PostMapping
+    public void create(@RequestBody ProductToCreateDto newProduct) {
+        productServiceImpl.create(newProduct);
 
     }
 
     /**
-     * @param articleCode -object that we want to delete
+     * @param  id -object that we want to delete
      */
-    @DeleteMapping(path = "/{articleCode}")
-    public void delete(@PathVariable String articleCode) {
-        productService.delete(articleCode);
+    @Operation(description = "Delete product by id")
+    @ApiResponse(responseCode = "204", description = "Product successfully deleted")
+    @ApiResponse(responseCode = "500", description = "Product not found")
+    @DeleteMapping(path = "/{id}")
+    public void delete(@PathVariable Integer id) {
+        productServiceImpl.delete(id);
 
     }
 
     /**
-     * @param articleCode       -certain name that is unique
+     * @param  id       -certain  id that is unique
      * @param newProduct-object that we want to update
      */
-    @PutMapping(path = "/{articleCode}")
-    public void update(@PathVariable String articleCode, @RequestBody Product newProduct) {
-        productService.update(articleCode, newProduct);
-
+    @Operation(description = "Update product")
+    @ApiResponse(responseCode = "200", description = "Product successfully updated")
+    @ApiResponse(responseCode = "500", description = "Product not found")
+    @PatchMapping(path = "/{id}")
+    public void update(@PathVariable Integer id, @RequestBody ProductToUpdateDto newProduct) {
+        productServiceImpl.update(id, newProduct);
     }
 }
