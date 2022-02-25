@@ -1,6 +1,6 @@
 package com.moskalev.controller.impl;
 
-import com.moskalev.service.impl.SignService;
+import com.moskalev.service.impl.SignServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 /**@version 1.1
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path = "/api/startPages")
 public class StartPageController {
-    private final SignService signService;
-    public StartPageController(SignService signService) {
-        this.signService = signService;
+    private final SignServiceImpl signServiceImpl;
+    public StartPageController(SignServiceImpl signServiceImpl) {
+        this.signServiceImpl = signServiceImpl;
     }
 
 

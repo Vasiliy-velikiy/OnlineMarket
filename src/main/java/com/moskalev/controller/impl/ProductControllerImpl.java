@@ -1,8 +1,10 @@
 package com.moskalev.controller.impl;
 
+import com.moskalev.controller.ProductController;
 import com.moskalev.dto.Impl.ProductToCreateDto;
 import com.moskalev.dto.Impl.ProductToUpdateDto;
 import com.moskalev.entities.Product;
+import com.moskalev.service.ProductService;
 import com.moskalev.service.impl.ProductServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -23,10 +25,10 @@ import org.springframework.web.bind.annotation.*;
 @ApiResponse(responseCode = "500", description = "Internal error")
 @ApiResponse(responseCode = "400", description = "Validation failed")
 @ApiResponse(responseCode = "404", description = "Product not found")
-public class ProductController {
-    private final ProductServiceImpl productServiceImpl;
+public class ProductControllerImpl implements ProductController {
+    private final ProductService productServiceImpl;
 
-    public ProductController(ProductServiceImpl productServiceImpl) {
+    public ProductControllerImpl(ProductServiceImpl productServiceImpl) {
         this.productServiceImpl = productServiceImpl;
     }
 
@@ -57,7 +59,8 @@ public class ProductController {
      * @param newProduct -object that we want to create
      */
     @Operation(description = "Create product")
-    @ApiResponse(responseCode = "200", description = "  Product successfully created")
+    @ApiResponse(responseCode = "200", description = "Product successfully created")
+    @ApiResponse(responseCode = "500", description = "Product  already exists")
     @PostMapping
     public void create(@RequestBody ProductToCreateDto newProduct) {
         productServiceImpl.create(newProduct);

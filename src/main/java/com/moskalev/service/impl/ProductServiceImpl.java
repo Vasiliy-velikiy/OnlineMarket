@@ -4,9 +4,9 @@ import com.moskalev.dto.Impl.ProductToCreateDto;
 import com.moskalev.dto.Impl.ProductToUpdateDto;
 import com.moskalev.entities.Product;
 import com.moskalev.exeptions.ProductException;
-import com.moskalev.exeptions.ResourseNotFoundExeption;
 import com.moskalev.mapper.ProductMapper;
 import com.moskalev.repositories.ProductRepository;
+import com.moskalev.service.ProductService;
 import org.hibernate.Hibernate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,7 +24,7 @@ import java.util.Optional;
  * Class service for product which provides interaction with product Repository
  */
 @Service
-public class ProductServiceImpl {
+public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     /**
      * filed describes object for convert
@@ -80,7 +80,7 @@ public class ProductServiceImpl {
 
     /**
      * @param id -certain id code that is unique
-     * @throws ResourseNotFoundExeption if  Product not found
+     * @throws ProductException if  Product not found
      */
     public void delete(Integer id) {
         Optional<Product> productOptional = productRepository.findById(id);
@@ -88,22 +88,23 @@ public class ProductServiceImpl {
             Product product = productOptional.get();
             productRepository.delete(product);
         } else {
-            throw new ResourseNotFoundExeption("Product not found");
+            throw new ProductException("Product not found");
         }
     }
 
     /**
-     * @param id -certain id Product
-     * @param newProduct  -new Product that we want to put in database
-     * @throws ResourseNotFoundExeption if Product not found
+     * @param id         -certain id Product
+     * @param newProduct -new Product that we want to put in database
+     * @throws ProductException if Product not found
      */
     public void update(Integer id, ProductToUpdateDto newProduct) {
         Optional<Product> productOptional = productRepository.findById(id);
-
         if (productOptional.isPresent()) {
             Product target = productOptional.get();
-            Product source=objectMapper.fromUpdateDto(newProduct);
+            Product source = objectMapper.fromUpdateDto(newProduct);
             productRepository.save(objectMapper.merge(target, source));
-        } else throw new ProductException("Product not found");
+        } else {
+            throw new ProductException("Product not found");
+        }
     }
 }

@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.Value;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -20,8 +19,8 @@ import static lombok.AccessLevel.PRIVATE;
 @Getter
 @Setter
 @AllArgsConstructor(access = PRIVATE)
-@Schema(name = "ProductInfo",description = "Info about product")
-public class ProductToUpdateDto {
+@Schema(name = "ProductUpdateInfo",description = "Info about product")
+public class ProductToUpdateDto  {
     @Schema(description = "product name")
     @Size(max = 300)
     String productName;

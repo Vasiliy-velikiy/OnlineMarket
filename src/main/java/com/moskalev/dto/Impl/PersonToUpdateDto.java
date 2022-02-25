@@ -3,10 +3,8 @@ package com.moskalev.dto.Impl;
 import com.moskalev.entities.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
-import lombok.extern.jackson.Jacksonized;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -19,8 +17,8 @@ import static lombok.AccessLevel.PRIVATE;
 @Getter
 @Setter
 @AllArgsConstructor(access = PRIVATE)
-@Schema(name = "PersonCreateInfo",description = "Info about person to create")
-public class PersonToUpdateDto {
+@Schema(name = "PersonUpdateInfo",description = "Info about person to create")
+public class PersonToUpdateDto  {
     @Schema(description = "first name")
     String firstName;
 

@@ -1,6 +1,7 @@
 package com.moskalev.controller.impl;
 
 
+import com.moskalev.controller.PersonController;
 import com.moskalev.dto.Impl.PersonToCreateDto;
 import com.moskalev.dto.Impl.PersonToUpdateDto;
 import com.moskalev.entities.Person;
@@ -29,10 +30,10 @@ import java.security.NoSuchAlgorithmException;
 @ApiResponse(responseCode = "500", description = "Internal error")
 @ApiResponse(responseCode = "400", description = "Validation failed")
 @ApiResponse(responseCode = "404", description = "User not found")
-public class PersonController {
+public class PersonControllerImpl implements PersonController<Person> {
     private final PersonService personService;
 
-    public PersonController(PersonService personService) {
+    public PersonControllerImpl(PersonService personService) {
         this.personService = personService;
     }
 
@@ -65,6 +66,7 @@ public class PersonController {
      */
     @Operation(description = "Create user")
     @ApiResponse(responseCode = "200", description = "User successfully created")
+    @ApiResponse(responseCode = "500", description = "User already exists")
     @PostMapping
     public void create(@Valid @RequestBody PersonToCreateDto person) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         personService.create(person);

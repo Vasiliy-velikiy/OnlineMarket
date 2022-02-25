@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -19,7 +18,7 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor(access = PRIVATE)
 @Getter
 @Setter
-@Schema(name = "ProductInfo",description = "Info about product")
+@Schema(name = "ProductCreateInfo",description = "Info about product")
 public class ProductToCreateDto {
 
     @Schema(description = "product name", required = true)

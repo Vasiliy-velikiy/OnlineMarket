@@ -1,4 +1,49 @@
 package com.moskalev.service;
 
+import com.moskalev.dto.Impl.ProductToCreateDto;
+import com.moskalev.dto.Impl.ProductToUpdateDto;
+import com.moskalev.entities.Product;
+import com.moskalev.exeptions.ProductException;
+import com.moskalev.exeptions.ResourseNotFoundExeption;
+import org.springframework.data.domain.Page;
+
+/**
+ * @author Vasiliy Moskalev
+ * @version 1.1
+ * @since 04.02.22
+ * Class interface for PersonServiceImpl
+ */
 public interface ProductService {
+    /**
+     * @return list of all Product in table product
+     */
+    public Page<Product> readAll();
+
+    /**
+     * @param article - certain article that is unique
+     * @return certain Product by article
+     * @throws ProductException if  Product not found
+     */
+    Product read(String article);
+
+    /**
+     * @param newProduct -class that we want to create
+     * @throws ProductException if Product with this article code already exists
+     */
+    void create(ProductToCreateDto newProduct);
+
+    /**
+     * @param id -certain id code that is unique
+     * @throws ResourseNotFoundExeption if  Product not found
+     */
+    void delete(Integer id);
+
+    /**
+     * @param id         -certain id Product
+     * @param newProduct -new Product that we want to put in database
+     * @throws ResourseNotFoundExeption if Product not found
+     */
+    void update(Integer id, ProductToUpdateDto newProduct);
+
+
 }

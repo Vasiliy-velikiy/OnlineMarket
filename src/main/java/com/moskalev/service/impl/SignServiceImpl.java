@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
  * @since 14.02.22
  * Class service  for create New person This class calls create method from PersonService */
 @Service
-public class SignService  {
+public class SignServiceImpl {
   private final PersonServiceImpl personServiceImpl;
   private final PersonRepository personRepository;
 
-    public SignService(PersonServiceImpl personServiceImpl, PersonRepository personRepository) {
+    public SignServiceImpl(PersonServiceImpl personServiceImpl, PersonRepository personRepository) {
         this.personServiceImpl = personServiceImpl;
         this.personRepository = personRepository;
     }
