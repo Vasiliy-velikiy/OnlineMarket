@@ -44,7 +44,7 @@ public class ProviderServiceImpl implements ProviderService {
     public Page<Provider> readAll() {
         List<Provider> listProviders = providerRepository.findAll();
         for (Provider providerOptional : listProviders) {
-            Hibernate.initialize(providerOptional);
+         //   Hibernate.initialize(providerOptional);
             Hibernate.initialize(providerOptional.getProductsOfProvider());
         }
         Pageable firstPageWithTwoElements = PageRequest.of(0, 2);

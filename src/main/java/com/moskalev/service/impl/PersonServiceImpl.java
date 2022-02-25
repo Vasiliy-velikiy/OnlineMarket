@@ -44,7 +44,7 @@ public class PersonServiceImpl implements PersonService {
     /**
      * filed describes final variable for encoding-this is salt for byte shift
      */
-    private static final String saltForEncryptingPassword = "mySalt";
+    private static final String SALT_FOR_ENCRYPTING_PASSWORD = "mySalt";
 
 
     public PersonServiceImpl(PersonRepository personRepository, PersMapper objectMapper, PasswordEncryptionService passwordEncryptionService) {
@@ -92,7 +92,7 @@ public class PersonServiceImpl implements PersonService {
     public void create(PersonToCreateDto newPersonToCreateDto) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         Optional<Person> templatePerson = personRepository.findByEmail(newPersonToCreateDto.getEmail());
         if (!templatePerson.isPresent()) {
-            newPersonToCreateDto.setPassword(passwordEncryptionService.hashToHex(newPersonToCreateDto.getPassword(), Optional.of(saltForEncryptingPassword)));
+            newPersonToCreateDto.setPassword(passwordEncryptionService.hashToHex(newPersonToCreateDto.getPassword(), Optional.of(SALT_FOR_ENCRYPTING_PASSWORD)));
             Person newPerson = objectMapper.fromDto(newPersonToCreateDto);
             personRepository.save(newPerson);
         } else {
@@ -125,11 +125,28 @@ public class PersonServiceImpl implements PersonService {
             Person target = optionalPerson.get();
             Person source = objectMapper.fromUpdateDto(newPerson);
             if (source.getPassword() != null) {
-                source.setPassword(passwordEncryptionService.hashToHex(source.getPassword(), Optional.of(saltForEncryptingPassword)));
+                source.setPassword(passwordEncryptionService.hashToHex(source.getPassword(), Optional.of(SALT_FOR_ENCRYPTING_PASSWORD)));
             }
             personRepository.save(objectMapper.merge(target, source));
         } else {
             throw new PersonException("Person not found");
         }
+    }
+
+    /**
+     * @param email    -already existing email
+     * @param password -already existing password
+     * @throws PersonException if Wrong password
+     * @throws PersonException if User with email not exists
+     */
+    public void signIn(String email, String password) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        Optional<Person> optionalPerson = personRepository.findByEmail(email);
+        if (optionalPerson.isPresent()) {
+            Person person = optionalPerson.get();
+            String encryptionPassword = passwordEncryptionService.hashToHex(password, Optional.of(SALT_FOR_ENCRYPTING_PASSWORD));
+            if (!person.getPassword().equals(encryptionPassword)) {
+                throw new PersonException(String.format("Wrong password, please try again"));
+            }
+        } else throw new PersonException(String.format("User with email %s not found", email));
     }
 }

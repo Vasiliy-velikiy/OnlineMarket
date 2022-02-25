@@ -36,7 +36,8 @@ public class Product {
     /**
      * String field describes provider who produce this product
      */
-    @ManyToOne(fetch = LAZY)
+   // @ManyToOne(fetch = LAZY)
+    @ManyToOne()
     @JoinColumn(name = "provider_id")
     private Provider provider;
 

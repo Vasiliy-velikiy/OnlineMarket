@@ -64,7 +64,6 @@ public class ProductControllerImpl implements ProductController {
     @PostMapping
     public void create(@RequestBody ProductToCreateDto newProduct) {
         productServiceImpl.create(newProduct);
-
     }
 
     /**
@@ -76,7 +75,6 @@ public class ProductControllerImpl implements ProductController {
     @DeleteMapping(path = "/{id}")
     public void delete(@PathVariable Integer id) {
         productServiceImpl.delete(id);
-
     }
 
     /**

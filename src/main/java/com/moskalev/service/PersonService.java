@@ -3,6 +3,7 @@ package com.moskalev.service;
 import com.moskalev.dto.Impl.PersonToCreateDto;
 import com.moskalev.dto.Impl.PersonToUpdateDto;
 import com.moskalev.entities.Person;
+import com.moskalev.exeptions.PersonException;
 import org.springframework.data.domain.Page;
 
 import java.io.UnsupportedEncodingException;
@@ -42,4 +43,10 @@ public interface PersonService {
      * @param newPerson -new Person that we want to put in database
      */
      void update(Integer id, PersonToUpdateDto newPerson) throws UnsupportedEncodingException, NoSuchAlgorithmException;
+
+    /**
+     * @param email    -already existing email
+     * @param password -already existing password
+     */
+     void signIn(String email, String password) throws UnsupportedEncodingException, NoSuchAlgorithmException;
 }

@@ -1,5 +1,6 @@
 package com.moskalev.service.impl;
 
+import com.moskalev.exeptions.EncryptingExсeption;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
@@ -47,8 +48,8 @@ public class PasswordEncryptionService {
         salt.ifPresent(s -> {
             try {
                 messageDigest.update(s.getBytes("UTF-8"));
-            } catch (Exception message) {
-                throw new RuntimeException(message);
+            } catch (Exception exception) {
+                throw new EncryptingExсeption(exception.getMessage());
             }
         });
         return messageDigest.digest();
