@@ -81,7 +81,7 @@ public class ProviderControllerImpl implements ProviderController {
     @Operation(description = "Update provider")
     @ApiResponse(responseCode = "200", description = "Provider successfully updated")
     @ApiResponse(responseCode = "500", description = "Provider not found")
-    @PutMapping(path = "/{id}")
+    @PatchMapping(path = "/{id}")
     public void update(@PathVariable Integer id, @RequestBody ProviderToUpdateDto newProvider) {
         providerServiceImpl.update(id, newProvider);
     }

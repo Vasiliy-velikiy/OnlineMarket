@@ -60,7 +60,7 @@ public class PersonServiceImpl implements PersonService {
         List<Person> listPersons = personRepository.findAll();
         for (Person personOptional : listPersons) {
             Hibernate.initialize(personOptional);
-            Hibernate.initialize(personOptional.getBasketForProductList());
+            Hibernate.initialize(personOptional.getOrders());
         }
         Pageable firstPageWithTwoElements = PageRequest.of(0, 2);
         return new PageImpl<>(listPersons, firstPageWithTwoElements, listPersons.size());
@@ -77,7 +77,7 @@ public class PersonServiceImpl implements PersonService {
         if (personOptional.isPresent()) {
             Person person = personOptional.get();
             Hibernate.initialize(person);
-            Hibernate.initialize(person.getBasketForProductList());
+            Hibernate.initialize(person.getOrders());
             return person;
         } else {
             throw new PersonException(String.format("User with email %s not found", email));

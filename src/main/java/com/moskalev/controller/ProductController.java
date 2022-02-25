@@ -13,7 +13,6 @@ import org.springframework.data.domain.Page;
  */
 public interface ProductController {
 
-
     /**
      * @param article -certain article that is unique
      * @return -certain product that we want to get

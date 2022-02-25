@@ -6,8 +6,6 @@ import lombok.Setter;
 import javax.persistence.*;
 
 
-import static javax.persistence.FetchType.LAZY;
-
 /**
  * @author Vasiliy  Moskalev
  * @version 1.1
@@ -36,8 +34,7 @@ public class Product {
     /**
      * String field describes provider who produce this product
      */
-   // @ManyToOne(fetch = LAZY)
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "provider_id")
     private Provider provider;
 
@@ -57,6 +54,6 @@ public class Product {
      * Each product will have number of basket, when customers will put for purchase
      */
     @ManyToOne()
-    @JoinColumn(name = "basket_for_product_id")
-    private BasketForProduct basketForProductNumber;
+    @JoinColumn(name = "order_id")
+    private Order order;
 }

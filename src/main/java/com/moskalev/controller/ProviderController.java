@@ -3,10 +3,7 @@ package com.moskalev.controller;
 import com.moskalev.dto.Impl.ProviderToCreateDto;
 import com.moskalev.dto.Impl.ProviderToUpdateDto;
 import com.moskalev.entities.Provider;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Vasiliy Moskalev

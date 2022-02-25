@@ -41,5 +41,4 @@ public interface PersonController<Person> {
      * @param newPerson-object that we want to update
      */
     void update(Integer id, PersonToUpdateDto newPerson) throws UnsupportedEncodingException, NoSuchAlgorithmException;
-
 }

@@ -19,7 +19,7 @@ public interface PersMapper {
      * @return Person object
      */
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "basketForProductList", ignore = true)
+    @Mapping(target = "orders", ignore = true)
     Person fromDto(PersonToCreateDto source);
 
     /**
@@ -27,7 +27,7 @@ public interface PersMapper {
      * @return Person object
      */
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "basketForProductList", ignore = true)
+    @Mapping(target = "orders", ignore = true)
     Person fromUpdateDto(PersonToUpdateDto source);
 
     /**

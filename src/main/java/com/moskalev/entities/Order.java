@@ -15,9 +15,9 @@ import java.util.List;
  */
 @Getter
 @Setter
-@Table(name = "baskets")
+@Table(name = "orders")
 @Entity
-public class BasketForProduct {
+public class Order {
 
     @Id
     @Column(name = "id")
@@ -34,6 +34,6 @@ public class BasketForProduct {
     /**
      * basket has certain list of product, which the user wants to buy
      */
-    @OneToMany(mappedBy = "basketForProductNumber")
+    @OneToMany(mappedBy = "order")
     private List<Product> products;
 }

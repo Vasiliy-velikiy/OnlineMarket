@@ -1,11 +1,8 @@
 package com.moskalev.entities;
 
 import lombok.*;
-
 import javax.persistence.*;
 import java.util.List;
-
-
 import static javax.persistence.EnumType.STRING;
 
 /**
@@ -54,5 +51,5 @@ public class Person {
      * Certain person has many baskets, certain basket has ONE person
      */
     @OneToMany(mappedBy = "owner")
-    private List<BasketForProduct> basketForProductList;
+    private List <Order> orders;
 }

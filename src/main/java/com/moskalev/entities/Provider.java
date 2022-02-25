@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
+import static javax.persistence.CascadeType.*;
 
 
 /**
@@ -41,9 +42,8 @@ public class Provider {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    // @OneToMany(mappedBy = "provider"),
-    //         orphanRemoval = true,
-    //        cascade = {PERSIST, MERGE, DETACH, REFRESH})
-    @OneToMany(mappedBy = "provider")
+     @OneToMany(mappedBy = "provider",
+             orphanRemoval = true,
+            cascade = {PERSIST, MERGE, DETACH, REFRESH})
     private List<Product> productsOfProvider;
 }

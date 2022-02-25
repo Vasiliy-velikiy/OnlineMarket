@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.security.ProviderException;
 import java.util.Optional;
 import java.util.List;
@@ -25,6 +26,7 @@ import java.util.List;
  * Class service for provider which provides interaction with providerRepository
  */
 @Service
+@Transactional
 public class ProviderServiceImpl implements ProviderService {
     private ProviderRepository providerRepository;
 
