@@ -43,9 +43,9 @@ public class Provider {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Setter(PRIVATE)
-    @OneToMany(mappedBy = "provider",
-            orphanRemoval = true,
-            cascade = {PERSIST, MERGE, DETACH, REFRESH})
+   // @OneToMany(mappedBy = "provider"),
+   //         orphanRemoval = true,
+    //        cascade = {PERSIST, MERGE, DETACH, REFRESH})
+    @OneToMany(mappedBy = "provider")
     List <Product> productsOfProvider;
 }

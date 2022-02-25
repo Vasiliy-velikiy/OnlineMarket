@@ -4,7 +4,6 @@ import com.moskalev.dto.Impl.ProductToCreateDto;
 import com.moskalev.dto.Impl.ProductToUpdateDto;
 import com.moskalev.entities.Product;
 import com.moskalev.exeptions.ProductException;
-import com.moskalev.exeptions.ResourseNotFoundExeption;
 import org.springframework.data.domain.Page;
 
 /**
@@ -34,14 +33,12 @@ public interface ProductService {
 
     /**
      * @param id -certain id code that is unique
-     * @throws ResourseNotFoundExeption if  Product not found
      */
     void delete(Integer id);
 
     /**
      * @param id         -certain id Product
      * @param newProduct -new Product that we want to put in database
-     * @throws ResourseNotFoundExeption if Product not found
      */
     void update(Integer id, ProductToUpdateDto newProduct);
 

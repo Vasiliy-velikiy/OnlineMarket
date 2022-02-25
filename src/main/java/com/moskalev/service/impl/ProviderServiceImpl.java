@@ -45,6 +45,7 @@ public class ProviderServiceImpl implements ProviderService {
         List<Provider> listProviders = providerRepository.findAll();
         for (Provider providerOptional : listProviders) {
             Hibernate.initialize(providerOptional);
+            Hibernate.initialize(providerOptional.getProductsOfProvider());
         }
         Pageable firstPageWithTwoElements = PageRequest.of(0, 2);
         return new PageImpl<>(listProviders, firstPageWithTwoElements, listProviders.size());
@@ -60,8 +61,9 @@ public class ProviderServiceImpl implements ProviderService {
         if (providerOptional.isPresent()) {
             Provider provider = providerOptional.get();
             Hibernate.initialize(provider);
+            Hibernate.initialize(provider.getProductsOfProvider());
             return provider;
-        } else throw new ProviderException(String.format("Provider with id %s not found", providerName));
+        } else {throw new ProviderException(String.format("Provider with id %s not found", providerName));}
     }
 
     /**

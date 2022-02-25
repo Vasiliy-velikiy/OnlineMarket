@@ -27,8 +27,8 @@ public interface PersMapper {
      * @return Person object
      */
     @Mapping(target = "id", ignore = true)
-  @Mapping(target = "basketForProductList", ignore = true)
-   Person fromUpdateDto(PersonToUpdateDto source);
+    @Mapping(target = "basketForProductList", ignore = true)
+    Person fromUpdateDto(PersonToUpdateDto source);
 
     /**
      * @param source -object that will merge
