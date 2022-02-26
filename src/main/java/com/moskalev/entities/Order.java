@@ -11,7 +11,7 @@ import java.util.List;
  * @author Vasiliy  Moskalev
  * @version 1.1
  * @since 03.02.22
- * This is class describes basket For Product
+ * This is class describes order For Product
  */
 @Getter
 @Setter

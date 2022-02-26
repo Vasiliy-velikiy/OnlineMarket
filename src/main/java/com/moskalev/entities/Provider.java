@@ -44,6 +44,6 @@ public class Provider {
 
      @OneToMany(mappedBy = "provider",
              orphanRemoval = true,
-            cascade = {PERSIST, MERGE, DETACH, REFRESH})
+            cascade = PERSIST)
     private List<Product> productsOfProvider;
 }

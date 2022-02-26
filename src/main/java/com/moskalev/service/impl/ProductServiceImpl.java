@@ -3,9 +3,11 @@ package com.moskalev.service.impl;
 import com.moskalev.dto.Impl.ProductToCreateDto;
 import com.moskalev.dto.Impl.ProductToUpdateDto;
 import com.moskalev.entities.Product;
+import com.moskalev.entities.Provider;
 import com.moskalev.exeptions.ProductException;
 import com.moskalev.mapper.ProductMapper;
 import com.moskalev.repositories.ProductRepository;
+import com.moskalev.repositories.ProviderRepository;
 import com.moskalev.service.ProductService;
 import org.hibernate.Hibernate;
 import org.springframework.data.domain.Page;
@@ -28,13 +30,16 @@ import java.util.Optional;
 @Transactional
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
+
+    private final ProviderRepository providerRepository;
     /**
      * filed describes object for convert
      */
     private final ProductMapper objectMapper;
 
-    public ProductServiceImpl(ProductRepository productRepository, ProductMapper objectMapper) {
+    public ProductServiceImpl(ProductRepository productRepository, ProviderRepository providerRepository, ProductMapper objectMapper) {
         this.productRepository = productRepository;
+        this.providerRepository = providerRepository;
         this.objectMapper = objectMapper;
     }
 
@@ -75,12 +80,27 @@ public class ProductServiceImpl implements ProductService {
     public void create(ProductToCreateDto newProduct) {
         Optional<Product> templateProduct = productRepository.findByArticleCode(newProduct.getArticleCode());
         if (!templateProduct.isPresent()) {
-            Product product = objectMapper.fromDto(newProduct);
-            productRepository.save(product);
+            Optional<Provider> productProvider = providerRepository.findById(newProduct.getProviderId());
+            if (productProvider.isPresent()) {
+                Product product = objectMapper.fromDto(newProduct);
+                product.setProvider(productProvider.get());
+                productRepository.save(product);
+            } else {
+                throw new ProductException("No such provider");
+            }
+
         } else {
             throw new ProductException(String.format("Product with article code:  %s already exists", newProduct.getArticleCode()));
         }
     }
+
+//    public void create(ProductToCreateDto newProduct) {
+//
+//    }
+//
+//    private Product mapToEntitie(ProductToCreateDto product) {
+//        Product
+//    }
 
     /**
      * @param id -certain id code that is unique
