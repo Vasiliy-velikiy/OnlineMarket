@@ -50,7 +50,6 @@ public class ProductServiceImpl implements ProductService {
         List<Product> listProducts = productRepository.findAll();
         for (Product productOptional : listProducts) {
             Hibernate.initialize(productOptional);
-            //Hibernate.initialize(productOptional.getProvider());
         }
         Pageable firstPageWithTwoElements = PageRequest.of(0, 2);
         return new PageImpl<>(listProducts, firstPageWithTwoElements, listProducts.size());
@@ -66,7 +65,6 @@ public class ProductServiceImpl implements ProductService {
         if (productOptional.isPresent()) {
             Product product = productOptional.get();
             Hibernate.initialize(product);
-            //Hibernate.initialize(product.getProvider());
             return product;
         } else {
             throw new ProductException(String.format("Product with article: %s not found", article));
@@ -88,19 +86,10 @@ public class ProductServiceImpl implements ProductService {
             } else {
                 throw new ProductException("No such provider");
             }
-
         } else {
             throw new ProductException(String.format("Product with article code:  %s already exists", newProduct.getArticleCode()));
         }
     }
-
-//    public void create(ProductToCreateDto newProduct) {
-//
-//    }
-//
-//    private Product mapToEntitie(ProductToCreateDto product) {
-//        Product
-//    }
 
     /**
      * @param id -certain id code that is unique

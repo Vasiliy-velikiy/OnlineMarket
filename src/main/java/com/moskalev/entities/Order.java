@@ -5,7 +5,10 @@ import lombok.Setter;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+
+import static javax.persistence.CascadeType.*;
 
 /**
  * @author Vasiliy  Moskalev
@@ -27,13 +30,33 @@ public class Order {
     /**
      * each basket belongs certain person
      */
-    @ManyToOne()
-    @JoinColumn(name = "owner_id")
+    @ManyToOne(fetch = FetchType.EAGER,
+            cascade = {CascadeType.MERGE,
+                    CascadeType.REFRESH})
+    @JoinColumn(name = "owner_id",referencedColumnName = "id", foreignKey = @ForeignKey(name = "products_provider_id_fk"))
     private Person owner;
 
     /**
      * basket has certain list of product, which the user wants to buy
      */
-    @OneToMany(mappedBy = "order")
-    private List<Product> products;
+    @ManyToMany
+    @JoinTable(
+            name = "order_product",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "order_id")
+    )
+   private List<Product> products;
+
+
+    public void addProducts(Product product) {
+        if(!products.contains(product)){
+            products.add(product);
+        }
+    }
+
+    public void removeProducts(Product product) {
+        if(products.contains(product)){
+            products.remove(product);
+        }
+    }
 }

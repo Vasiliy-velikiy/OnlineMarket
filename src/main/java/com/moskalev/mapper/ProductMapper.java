@@ -21,7 +21,7 @@ public interface ProductMapper {
      */
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "provider", ignore = true)
-    @Mapping(target = "order", ignore = true)
+    @Mapping(target = "orders", ignore = true)
     Product fromDto(ProductToCreateDto source);
 
     /**
@@ -30,7 +30,7 @@ public interface ProductMapper {
      */
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "provider", ignore = true)
-    @Mapping(target = "order", ignore = true)
+    @Mapping(target = "orders", ignore = true)
     Product fromUpdateDto(ProductToUpdateDto source);
 
     /**

@@ -29,12 +29,11 @@ public class ProductToUpdateDto  {
     Double purchasePrice;
 
     @Schema(description = "purchase id")
-
-    private Provider providerId;
+     Integer providerId;
 
     @Schema(description = "description")
-    private String description;
+    String description;
 
     @Schema(description = "article code")
-    private String articleCode;
+    String articleCode;
 }
