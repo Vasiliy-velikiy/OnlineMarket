@@ -1,6 +1,7 @@
 package com.moskalev.service.impl;
 
 import com.moskalev.dto.orderDto.AddnewOrderAndNewProduct;
+import com.moskalev.dto.orderDto.ListOfProductsDto;
 import com.moskalev.dto.orderDto.OrderDto;
 import com.moskalev.entities.Order;
 import com.moskalev.entities.Person;
@@ -16,6 +17,7 @@ import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -61,13 +63,35 @@ public class OrderServiceImpl {
         Optional<Order> optionalOrder = orderRepository.findById(orderDto.getOrderId());
         Optional<Product> optionalProduct = productRepository.findById(orderDto.getProductId());
         if (optionalOrder.isPresent() && optionalProduct.isPresent()) {
-            System.out.println("this is addOrderAndProducts method");
             Product product = optionalProduct.get();
-                 Hibernate.initialize(product);
+            Hibernate.initialize(product);
             Order order = optionalOrder.get();
-               Hibernate.initialize(order);
+            Hibernate.initialize(order);
             product.addOrder(order);
             order.addProducts(product);
+        }
+        else{
+            throw new OrderExeption("Number of Order or number of product not found");
+        }
+    }
+
+
+    public void addListOfProducts(ListOfProductsDto listOfProductsDto){
+        Optional<Order> optionalOrder = orderRepository.findById(listOfProductsDto.getOrderId());
+        List<Integer>productsIdList=listOfProductsDto.getProductsId();
+        for (Integer productId:productsIdList){
+            Optional<Product> optionalProduct = productRepository.findById(productId);
+            if (optionalOrder.isPresent() && optionalProduct.isPresent()) {
+                Product product = optionalProduct.get();
+                Hibernate.initialize(product);
+                Order order = optionalOrder.get();
+                Hibernate.initialize(order);
+                product.addOrder(order);
+                order.addProducts(product);
+            }
+            else{
+                throw new OrderExeption("Number of Order or number of product not found");
+            }
         }
     }
 }

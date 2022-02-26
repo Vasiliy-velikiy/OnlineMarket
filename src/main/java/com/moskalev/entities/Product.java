@@ -59,9 +59,7 @@ public class Product {
     private List<Order> orders;
 
     public void addOrder(Order order) {
-        if (!this.orders.contains(order)) {
-            this.orders.add(order);
-        }
+            orders.add(order);
     }
 
     public void removeOrder(Order order) {

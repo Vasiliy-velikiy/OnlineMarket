@@ -1,6 +1,7 @@
 package com.moskalev.controller.impl;
 
 import com.moskalev.dto.orderDto.AddnewOrderAndNewProduct;
+import com.moskalev.dto.orderDto.ListOfProductsDto;
 import com.moskalev.dto.orderDto.OrderDto;
 import com.moskalev.service.impl.OrderServiceImpl;
 import org.springframework.web.bind.annotation.*;
@@ -37,4 +38,8 @@ public class OrderController {
         orderService.addOrderAndProducts(addnewOrderAndNewProduct);
     }
 
+    @PostMapping(path = "/addListOfProducts")
+    public void addOListOfProducts(@RequestBody ListOfProductsDto listOfProductsDto){
+        orderService.addListOfProducts(listOfProductsDto);
+    }
 }

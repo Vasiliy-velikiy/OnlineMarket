@@ -49,14 +49,12 @@ public class Order {
 
 
     public void addProducts(Product product) {
-        if(!products.contains(product)){
             products.add(product);
-        }
+
     }
 
     public void removeProducts(Product product) {
-        if(products.contains(product)){
-            products.remove(product);
-        }
+        products.remove(product);
+
     }
 }
