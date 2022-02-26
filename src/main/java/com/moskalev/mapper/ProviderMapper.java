@@ -1,10 +1,10 @@
 package com.moskalev.mapper;
 
-import com.moskalev.dto.Impl.ProductToCreateDto;
-import com.moskalev.dto.Impl.ProductToUpdateDto;
-import com.moskalev.dto.Impl.ProviderToCreateDto;
-import com.moskalev.dto.Impl.ProviderToUpdateDto;
-import com.moskalev.entities.Product;
+
+
+
+import com.moskalev.dto.providerDto.ProviderToCreateDto;
+import com.moskalev.dto.providerDto.ProviderToUpdateDto;
 import com.moskalev.entities.Provider;
 import org.mapstruct.*;
 

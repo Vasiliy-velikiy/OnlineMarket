@@ -1,7 +1,8 @@
 package com.moskalev.service;
 
-import com.moskalev.dto.Impl.ProviderToCreateDto;
-import com.moskalev.dto.Impl.ProviderToUpdateDto;
+
+import com.moskalev.dto.providerDto.ProviderToCreateDto;
+import com.moskalev.dto.providerDto.ProviderToUpdateDto;
 import com.moskalev.entities.Provider;
 import org.springframework.data.domain.Page;
 

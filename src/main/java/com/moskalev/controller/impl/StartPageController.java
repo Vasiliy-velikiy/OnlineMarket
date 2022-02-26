@@ -1,7 +1,8 @@
 package com.moskalev.controller.impl;
 
-import com.moskalev.dto.Impl.PersonSignInDto;
-import com.moskalev.dto.Impl.PersonToCreateDto;
+
+import com.moskalev.dto.personDto.PersonSignInDto;
+import com.moskalev.dto.personDto.PersonToCreateDto;
 import com.moskalev.service.PersonService;
 import org.springframework.web.bind.annotation.*;
 

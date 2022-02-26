@@ -19,7 +19,7 @@ import static javax.persistence.CascadeType.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "providers", uniqueConstraints = {@UniqueConstraint(name = "unique_provider_name", columnNames = "provider_name")})
+@Table(name = "providers")
 public class Provider {
 
     @Id
@@ -42,8 +42,9 @@ public class Provider {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-     @OneToMany(mappedBy = "provider",
-             orphanRemoval = true,
-            cascade = PERSIST)
+    @OneToMany(mappedBy = "provider",
+            orphanRemoval = true,
+            fetch = FetchType.LAZY,
+            cascade = {PERSIST, MERGE, DETACH, REFRESH})
     private List<Product> productsOfProvider;
 }

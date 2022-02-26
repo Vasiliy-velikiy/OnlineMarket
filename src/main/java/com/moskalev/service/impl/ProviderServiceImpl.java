@@ -1,7 +1,8 @@
 package com.moskalev.service.impl;
 
-import com.moskalev.dto.Impl.ProviderToCreateDto;
-import com.moskalev.dto.Impl.ProviderToUpdateDto;
+
+import com.moskalev.dto.providerDto.ProviderToCreateDto;
+import com.moskalev.dto.providerDto.ProviderToUpdateDto;
 import com.moskalev.entities.Provider;
 import com.moskalev.mapper.ProviderMapper;
 import com.moskalev.repositories.ProviderRepository;
@@ -46,7 +47,7 @@ public class ProviderServiceImpl implements ProviderService {
     public Page<Provider> readAll() {
         List<Provider> listProviders = providerRepository.findAll();
         for (Provider providerOptional : listProviders) {
-         //   Hibernate.initialize(providerOptional);
+           // Hibernate.initialize(providerOptional);
             Hibernate.initialize(providerOptional.getProductsOfProvider());
         }
         Pageable firstPageWithTwoElements = PageRequest.of(0, 2);
@@ -63,7 +64,7 @@ public class ProviderServiceImpl implements ProviderService {
         if (providerOptional.isPresent()) {
             Provider provider = providerOptional.get();
             Hibernate.initialize(provider);
-            Hibernate.initialize(provider.getProductsOfProvider());
+           // Hibernate.initialize(provider.getProductsOfProvider());
             return provider;
         } else {throw new ProviderException(String.format("Provider with id %s not found", providerName));}
     }

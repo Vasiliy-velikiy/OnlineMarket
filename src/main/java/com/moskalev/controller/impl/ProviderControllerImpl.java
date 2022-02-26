@@ -1,8 +1,8 @@
 package com.moskalev.controller.impl;
 
 import com.moskalev.controller.ProviderController;
-import com.moskalev.dto.Impl.ProviderToCreateDto;
-import com.moskalev.dto.Impl.ProviderToUpdateDto;
+import com.moskalev.dto.providerDto.ProviderToCreateDto;
+import com.moskalev.dto.providerDto.ProviderToUpdateDto;
 import com.moskalev.entities.Provider;
 import com.moskalev.service.ProviderService;
 import io.swagger.v3.oas.annotations.Operation;

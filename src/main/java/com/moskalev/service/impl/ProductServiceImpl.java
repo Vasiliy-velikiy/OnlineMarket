@@ -1,7 +1,8 @@
 package com.moskalev.service.impl;
 
-import com.moskalev.dto.Impl.ProductToCreateDto;
-import com.moskalev.dto.Impl.ProductToUpdateDto;
+
+import com.moskalev.dto.productDto.ProductToCreateDto;
+import com.moskalev.dto.productDto.ProductToUpdateDto;
 import com.moskalev.entities.Product;
 import com.moskalev.entities.Provider;
 import com.moskalev.exeptions.ProductException;
@@ -50,6 +51,8 @@ public class ProductServiceImpl implements ProductService {
         List<Product> listProducts = productRepository.findAll();
         for (Product productOptional : listProducts) {
             Hibernate.initialize(productOptional);
+           // Hibernate.initialize(productOptional.getOrders());
+           // Hibernate.initialize(productOptional.getProvider());
         }
         Pageable firstPageWithTwoElements = PageRequest.of(0, 2);
         return new PageImpl<>(listProducts, firstPageWithTwoElements, listProducts.size());
@@ -65,6 +68,8 @@ public class ProductServiceImpl implements ProductService {
         if (productOptional.isPresent()) {
             Product product = productOptional.get();
             Hibernate.initialize(product);
+           // Hibernate.initialize(product.getOrders());
+            //Hibernate.initialize(product.getProvider());
             return product;
         } else {
             throw new ProductException(String.format("Product with article: %s not found", article));

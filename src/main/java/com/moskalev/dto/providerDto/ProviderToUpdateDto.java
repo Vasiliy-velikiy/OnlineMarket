@@ -1,4 +1,4 @@
-package com.moskalev.dto.Impl;
+package com.moskalev.dto.providerDto;
 
 import com.moskalev.validation.annotaton.PhoneNumber;
 import io.swagger.v3.oas.annotations.media.Schema;

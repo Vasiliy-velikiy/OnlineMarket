@@ -1,7 +1,8 @@
 package com.moskalev.service;
 
-import com.moskalev.dto.Impl.ProductToCreateDto;
-import com.moskalev.dto.Impl.ProductToUpdateDto;
+
+import com.moskalev.dto.productDto.ProductToCreateDto;
+import com.moskalev.dto.productDto.ProductToUpdateDto;
 import com.moskalev.entities.Product;
 import com.moskalev.exeptions.ProductException;
 import org.springframework.data.domain.Page;

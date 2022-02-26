@@ -7,6 +7,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.CascadeType.*;
+
 
 /**
  * @author Vasiliy  Moskalev
@@ -36,8 +38,8 @@ public class Product {
     /**
      * String field describes provider who produce this product
      */
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
-    @JoinColumn(name = "provider_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "products_provider_id_fk"))
+    @ManyToOne(fetch = FetchType.LAZY,  cascade = {PERSIST, MERGE, DETACH, REFRESH})
+    @JoinColumn(name = "provider_id")
     private Provider provider;
 
     /**

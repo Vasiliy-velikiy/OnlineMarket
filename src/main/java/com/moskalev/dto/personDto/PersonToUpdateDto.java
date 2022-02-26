@@ -1,4 +1,4 @@
-package com.moskalev.dto.Impl;
+package com.moskalev.dto.personDto;
 
 import com.moskalev.entities.Role;
 import io.swagger.v3.oas.annotations.media.Schema;

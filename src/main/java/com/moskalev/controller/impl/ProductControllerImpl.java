@@ -1,8 +1,8 @@
 package com.moskalev.controller.impl;
 
 import com.moskalev.controller.ProductController;
-import com.moskalev.dto.Impl.ProductToCreateDto;
-import com.moskalev.dto.Impl.ProductToUpdateDto;
+import com.moskalev.dto.productDto.ProductToCreateDto;
+import com.moskalev.dto.productDto.ProductToUpdateDto;
 import com.moskalev.entities.Product;
 import com.moskalev.service.ProductService;
 import com.moskalev.service.impl.ProductServiceImpl;

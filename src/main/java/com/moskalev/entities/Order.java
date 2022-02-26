@@ -30,7 +30,7 @@ public class Order {
     /**
      * each basket belongs certain person
      */
-    @ManyToOne(fetch = FetchType.EAGER,
+    @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE,
                     CascadeType.REFRESH})
     @JoinColumn(name = "owner_id",referencedColumnName = "id", foreignKey = @ForeignKey(name = "products_provider_id_fk"))
