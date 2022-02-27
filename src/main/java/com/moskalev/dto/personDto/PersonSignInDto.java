@@ -11,14 +11,16 @@ import javax.validation.constraints.Size;
 
 import static lombok.AccessLevel.PRIVATE;
 
-/** @version  1.1
+/**
  * @author Vasiliy  Moskalev
+ * @version 1.1
  * @since 25.02.22
- * Class  for transfer user data for sign in*/
+ * Class  for transfer user data for sign in
+ */
 @AllArgsConstructor(access = PRIVATE)
 @Getter
 @Setter
-@Schema(name = "PersonSignIn",description = "Info about person to sign in")
+@Schema(name = "PersonSignIn", description = "Info about person to sign in")
 public class PersonSignInDto {
 
     @Schema(description = "email", required = true)

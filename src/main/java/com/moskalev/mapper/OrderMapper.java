@@ -8,7 +8,7 @@ import org.mapstruct.*;
  * @author Vasiliy Moskalev
  * @version 1.1
  * @since 09.02.22
- * Class mapper for conversion Person to PersonToUpdateDto and PersonToCreateDto and back
+ * Class mapper for conversion Order to OrderDto, OneProductToAddInOrderDto,ListOfProductsDto  and back
  */
 @Mapper
 public interface OrderMapper {

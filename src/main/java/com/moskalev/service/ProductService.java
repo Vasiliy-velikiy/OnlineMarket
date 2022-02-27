@@ -17,7 +17,7 @@ public interface ProductService {
     /**
      * @return list of all Product in table product
      */
-    public Page<Product> readAll();
+    Page<Product> readAll();
 
     /**
      * @param article - certain article that is unique
@@ -42,6 +42,4 @@ public interface ProductService {
      * @param newProduct -new Product that we want to put in database
      */
     void update(Integer id, ProductToUpdateDto newProduct);
-
-
 }

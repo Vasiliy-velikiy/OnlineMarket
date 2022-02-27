@@ -2,13 +2,9 @@ package com.moskalev.entities;
 
 import lombok.Getter;
 import lombok.Setter;
-
-
 import javax.persistence.*;
 import java.util.List;
-
 import static javax.persistence.CascadeType.*;
-
 
 /**
  * @author Vasiliy  Moskalev
@@ -42,6 +38,9 @@ public class Provider {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    /**
+     * String field describes that each provider has list of products
+     */
     @OneToMany(mappedBy = "provider",
             orphanRemoval = true,
             fetch = FetchType.LAZY,

@@ -10,14 +10,16 @@ import javax.validation.constraints.NotBlank;
 
 import static lombok.AccessLevel.PRIVATE;
 
-/** @version  1.1
+/**
  * @author Vasiliy  Moskalev
+ * @version 1.1
  * @since 24.02.22
- * Class  for transfer provider data for create in Database*/
+ * Class  for transfer provider data for create in Database
+ */
 @AllArgsConstructor(access = PRIVATE)
 @Getter
 @Setter
-@Schema(name = "ProviderCreateInfo",description = "Info about product to create")
+@Schema(name = "ProviderCreateInfo", description = "Info about product to create")
 public class ProviderToCreateDto {
 
     @Schema(description = "provider name", required = true)

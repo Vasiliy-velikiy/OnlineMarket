@@ -12,15 +12,17 @@ import javax.validation.constraints.Size;
 
 import static lombok.AccessLevel.PRIVATE;
 
-/** @version  1.1
+/**
  * @author Vasiliy  Moskalev
+ * @version 1.1
  * @since 09.02.22
- * Class  for transfer user data for create in Database*/
+ * Class  for transfer user data for create in Database
+ */
 @AllArgsConstructor(access = PRIVATE)
 @Getter
 @Setter
-@Schema(name = "PersonCreateInfo",description = "Info about person to create")
-public class PersonToCreateDto  {
+@Schema(name = "PersonCreateInfo", description = "Info about person to create")
+public class PersonToCreateDto {
 
     @Schema(description = "first name", required = true)
     @NotBlank

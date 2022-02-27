@@ -38,6 +38,4 @@ public interface ProviderService {
      * @param newProvider -new Provider that we want to put in database
      */
     void update(Integer id, ProviderToUpdateDto newProvider);
-
-
 }

@@ -1,6 +1,5 @@
 package com.moskalev.dto.productDto;
 
-import com.moskalev.entities.Provider;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,14 +10,16 @@ import javax.validation.constraints.Size;
 
 import static lombok.AccessLevel.PRIVATE;
 
-/** @version  1.1
+/**
  * @author Vasiliy  Moskalev
+ * @version 1.1
  * @since 24.02.22
- * Class  for transfer product data for create in Database*/
+ * Class  for transfer product data for create in Database
+ */
 @AllArgsConstructor(access = PRIVATE)
 @Getter
 @Setter
-@Schema(name = "ProductCreateInfo",description = "Info about product")
+@Schema(name = "ProductCreateInfo", description = "Info about product")
 public class ProductToCreateDto {
 
     @Schema(description = "product name", required = true)

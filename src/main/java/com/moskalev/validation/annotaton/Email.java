@@ -3,6 +3,7 @@ package com.moskalev.validation.annotaton;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
+
 /**
  * @author Vasiliy Moskalev
  * @version 1.1

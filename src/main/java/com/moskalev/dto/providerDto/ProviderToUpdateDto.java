@@ -8,15 +8,17 @@ import lombok.Setter;
 
 import static lombok.AccessLevel.PRIVATE;
 
-/** @version  1.1
+/**
  * @author Vasiliy  Moskalev
+ * @version 1.1
  * @since 24.02.22
- * Class  for transfer provider data for create in Database*/
+ * Class  for transfer provider data for create in Database
+ */
 @AllArgsConstructor(access = PRIVATE)
 @Getter
 @Setter
-@Schema(name = "ProviderUpdateInfo",description = "Info about product to update")
-public class ProviderToUpdateDto  {
+@Schema(name = "ProviderUpdateInfo", description = "Info about product to update")
+public class ProviderToUpdateDto {
 
     @Schema(description = "provider name")
     private String providerName;

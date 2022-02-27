@@ -9,16 +9,19 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import static lombok.AccessLevel.PRIVATE;
-/** @version  1.1
+
+/**
  * @author Vasiliy  Moskalev
+ * @version 1.1
  * @since 09.02.22
- * Class  for transfer user data for update in Database*/
+ * Class  for transfer user data for update in Database
+ */
 @Value
 @Getter
 @Setter
 @AllArgsConstructor(access = PRIVATE)
-@Schema(name = "PersonUpdateInfo",description = "Info about person to create")
-public class PersonToUpdateDto  {
+@Schema(name = "PersonUpdateInfo", description = "Info about person to create")
+public class PersonToUpdateDto {
     @Schema(description = "first name")
     String firstName;
 

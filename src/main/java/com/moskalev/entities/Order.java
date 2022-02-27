@@ -5,10 +5,8 @@ import lombok.Setter;
 
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
-import static javax.persistence.CascadeType.*;
 
 /**
  * @author Vasiliy  Moskalev
@@ -33,7 +31,7 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE,
                     CascadeType.REFRESH})
-    @JoinColumn(name = "owner_id",referencedColumnName = "id", foreignKey = @ForeignKey(name = "products_provider_id_fk"))
+    @JoinColumn(name = "owner_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "products_provider_id_fk"))
     private Person owner;
 
     /**
@@ -45,16 +43,19 @@ public class Order {
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "order_id")
     )
-   private List<Product> products;
+    private List<Product> products;
 
-
+    /**
+     * @param product -add product to list
+     */
     public void addProducts(Product product) {
-            products.add(product);
-
+        products.add(product);
     }
 
+    /**
+     * @param product -remove product to list
+     */
     public void removeProducts(Product product) {
         products.remove(product);
-
     }
 }
