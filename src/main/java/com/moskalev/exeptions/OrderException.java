@@ -6,8 +6,8 @@ package com.moskalev.exeptions;
  * @since 21.02.22
  * Class runtime exception if Orders has some problems
  */
-public class OrderExeption extends RuntimeException{
-    public OrderExeption(String message) {
+public class OrderException extends RuntimeException{
+    public OrderException(String message) {
         super(message);
     }
 }

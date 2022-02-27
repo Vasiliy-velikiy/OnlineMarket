@@ -2,9 +2,8 @@ package com.moskalev.dto.providerDto;
 
 import com.moskalev.validation.annotaton.PhoneNumber;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.extern.jackson.Jacksonized;
 
 import javax.validation.constraints.NotBlank;
 
@@ -19,6 +18,9 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor(access = PRIVATE)
 @Getter
 @Setter
+@Value
+@Builder
+@Jacksonized
 @Schema(name = "ProviderCreateInfo", description = "Info about product to create")
 public class ProviderToCreateDto {
 

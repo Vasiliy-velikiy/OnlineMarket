@@ -3,6 +3,7 @@ package com.moskalev.dto.personDto;
 import com.moskalev.entities.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
+import lombok.extern.jackson.Jacksonized;
 
 
 import javax.validation.constraints.Email;
@@ -21,6 +22,8 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor(access = PRIVATE)
 @Getter
 @Setter
+@Builder
+@Jacksonized
 @Schema(name = "PersonCreateInfo", description = "Info about person to create")
 public class PersonToCreateDto {
 

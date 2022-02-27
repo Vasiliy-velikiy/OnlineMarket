@@ -1,9 +1,8 @@
 package com.moskalev.dto.orderDto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.extern.jackson.Jacksonized;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -15,6 +14,9 @@ import static lombok.AccessLevel.PRIVATE;
  */
 @Getter
 @Setter
+@Value
+@Builder
+@Jacksonized
 @AllArgsConstructor(access = PRIVATE)
 @Schema(name = "Info about one product in order", description = "Info about of certain product and certain order")
 public class OneProductToAddInOrderDto {

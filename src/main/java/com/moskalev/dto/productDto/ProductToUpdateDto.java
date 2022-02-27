@@ -1,10 +1,8 @@
 package com.moskalev.dto.productDto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.Value;
+import lombok.*;
+import lombok.extern.jackson.Jacksonized;
 
 import javax.validation.constraints.Size;
 
@@ -19,6 +17,8 @@ import static lombok.AccessLevel.PRIVATE;
 @Value
 @Getter
 @Setter
+@Builder
+@Jacksonized
 @AllArgsConstructor(access = PRIVATE)
 @Schema(name = "ProductUpdateInfo", description = "Info about product")
 public class ProductToUpdateDto {

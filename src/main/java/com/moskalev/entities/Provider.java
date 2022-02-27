@@ -1,5 +1,6 @@
 package com.moskalev.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
@@ -41,6 +42,7 @@ public class Provider {
     /**
      * String field describes that each provider has list of products
      */
+
     @OneToMany(mappedBy = "provider",
             orphanRemoval = true,
             fetch = FetchType.LAZY,

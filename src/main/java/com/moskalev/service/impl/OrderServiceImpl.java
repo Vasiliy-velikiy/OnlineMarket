@@ -6,7 +6,7 @@ import com.moskalev.dto.orderDto.OrderDto;
 import com.moskalev.entities.Order;
 import com.moskalev.entities.Person;
 import com.moskalev.entities.Product;
-import com.moskalev.exeptions.OrderExeption;
+import com.moskalev.exeptions.OrderException;
 import com.moskalev.mapper.OrderMapper;
 import com.moskalev.repositories.OrderRepository;
 import com.moskalev.repositories.PersonRepository;
@@ -42,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * @param orderDto -order that we want to create
-     * @throws OrderExeption if person not exists in persons table
+     * @throws OrderException if person not exists in persons table
      */
     public void create(OrderDto orderDto) {
         Optional<Person> person = personRepository.findById(orderDto.getPersonId());
@@ -51,13 +51,13 @@ public class OrderServiceImpl implements OrderService {
             order.setOwner(person.get());
             orderRepository.save(order);
         } else {
-            throw new OrderExeption("No such person");
+            throw new OrderException("No such person");
         }
     }
 
     /**
      * @param id -order that we want to delete
-     * @throws OrderExeption if Product not found in products table
+     * @throws OrderException if Product not found in products table
      */
     public void delete(Integer id) {
         Optional<Order> orderOptional = orderRepository.findById(id);
@@ -65,13 +65,13 @@ public class OrderServiceImpl implements OrderService {
             Order order = orderOptional.get();
             orderRepository.delete(order);
         } else {
-            throw new OrderExeption("Product not found");
+            throw new OrderException("Product not found");
         }
     }
 
     /**
      * @param orderDto -order with product that we want to create
-     * @throws OrderExeption if Number of Order or number of product not found
+     * @throws OrderException if Number of Order or number of product not found
      */
     public void addOrderAndProducts(OneProductToAddInOrderDto orderDto) {
         Optional<Order> optionalOrder = orderRepository.findById(orderDto.getOrderId());
@@ -84,13 +84,13 @@ public class OrderServiceImpl implements OrderService {
             product.addOrder(order);
             order.addProducts(product);
         } else {
-            throw new OrderExeption("Number of Order or number of product not found");
+            throw new OrderException("Number of Order or number of product not found");
         }
     }
 
     /**
      * @param listOfProductsDto-order with list of products that we want to create
-     * @throws OrderExeption if Number of Order or number of product not found
+     * @throws OrderException if Number of Order or number of product not found
      */
     public void addListOfProducts(ListOfProductsDto listOfProductsDto) {
         Optional<Order> optionalOrder = orderRepository.findById(listOfProductsDto.getOrderId());
@@ -105,7 +105,7 @@ public class OrderServiceImpl implements OrderService {
                 product.addOrder(order);
                 order.addProducts(product);
             } else {
-                throw new OrderExeption("Number of Order or number of product not found");
+                throw new OrderException("Number of Order or number of product not found");
             }
         }
     }

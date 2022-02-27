@@ -1,17 +1,14 @@
 package com.moskalev.controller.impl;
 
-import com.moskalev.controller.ProductController;
 import com.moskalev.dto.productDto.ProductToCreateDto;
 import com.moskalev.dto.productDto.ProductToUpdateDto;
 import com.moskalev.entities.Product;
-import com.moskalev.service.ProductService;
 import com.moskalev.service.impl.ProductServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-
 
 /**
  * @version 1.1
@@ -25,8 +22,8 @@ import org.springframework.web.bind.annotation.*;
 @ApiResponse(responseCode = "500", description = "Internal error")
 @ApiResponse(responseCode = "400", description = "Validation failed")
 @ApiResponse(responseCode = "404", description = "Product not found")
-public class ProductControllerImpl implements ProductController {
-    private final ProductService productServiceImpl;
+public class ProductControllerImpl  {
+    private final ProductServiceImpl productServiceImpl;
 
     public ProductControllerImpl(ProductServiceImpl productServiceImpl) {
         this.productServiceImpl = productServiceImpl;

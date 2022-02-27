@@ -1,9 +1,8 @@
 package com.moskalev.dto.personDto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.extern.jackson.Jacksonized;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -20,6 +19,9 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor(access = PRIVATE)
 @Getter
 @Setter
+@Value
+@Builder
+@Jacksonized
 @Schema(name = "PersonSignIn", description = "Info about person to sign in")
 public class PersonSignInDto {
 

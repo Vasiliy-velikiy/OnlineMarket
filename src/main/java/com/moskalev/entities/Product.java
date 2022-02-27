@@ -1,5 +1,9 @@
 package com.moskalev.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +21,7 @@ import static javax.persistence.CascadeType.*;
 @Setter
 @Entity
 @Table(name = "products", uniqueConstraints = {@UniqueConstraint(name = "unique_article", columnNames = "article_code")})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Product {
     @Id
     @Column(name = "id")
@@ -35,6 +40,7 @@ public class Product {
     /**
      * String field describes provider who produce this product
      */
+
     @ManyToOne(fetch = FetchType.LAZY,  cascade = {PERSIST, MERGE, DETACH, REFRESH})
     @JoinColumn(name = "provider_id")
     private Provider provider;
@@ -54,6 +60,7 @@ public class Product {
     /**
      * Each product will have number of basket, when customers will put for purchase
      */
+
     @ManyToMany(mappedBy = "products")
     private List<Order> orders;
 

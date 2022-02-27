@@ -9,15 +9,14 @@ import com.moskalev.exeptions.ProductException;
 import com.moskalev.mapper.ProductMapper;
 import com.moskalev.repositories.ProductRepository;
 import com.moskalev.repositories.ProviderRepository;
-import com.moskalev.service.ProductService;
 import org.hibernate.Hibernate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,8 +27,8 @@ import java.util.Optional;
  * Class service for product which provides interaction with product Repository
  */
 @Service
-@Transactional
-public class ProductServiceImpl implements ProductService {
+
+public class ProductServiceImpl  {
     private final ProductRepository productRepository;
 
     private final ProviderRepository providerRepository;
@@ -47,14 +46,15 @@ public class ProductServiceImpl implements ProductService {
     /**
      * @return list of all Product in table product
      */
+    @Transactional(readOnly = true)
     public Page<Product> readAll() {
         List<Product> listProducts = productRepository.findAll();
         for (Product productOptional : listProducts) {
-            Hibernate.initialize(productOptional);
-           // Hibernate.initialize(productOptional.getOrders());
-           // Hibernate.initialize(productOptional.getProvider());
+//            Hibernate.initialize(productOptional);
+//            Hibernate.initialize(productOptional.getOrders());
+//            Hibernate.initialize(productOptional.getProvider());
         }
-        Pageable firstPageWithTwoElements = PageRequest.of(0, 2);
+        Pageable firstPageWithTwoElements = PageRequest.of(0, listProducts.size());
         return new PageImpl<>(listProducts, firstPageWithTwoElements, listProducts.size());
     }
 
@@ -67,9 +67,9 @@ public class ProductServiceImpl implements ProductService {
         Optional<Product> productOptional = productRepository.findByArticleCode(article);
         if (productOptional.isPresent()) {
             Product product = productOptional.get();
-            Hibernate.initialize(product);
-           // Hibernate.initialize(product.getOrders());
-            //Hibernate.initialize(product.getProvider());
+//            Hibernate.initialize(product);
+//            Hibernate.initialize(product.getOrders());
+//            Hibernate.initialize(product.getProvider());
             return product;
         } else {
             throw new ProductException(String.format("Product with article: %s not found", article));

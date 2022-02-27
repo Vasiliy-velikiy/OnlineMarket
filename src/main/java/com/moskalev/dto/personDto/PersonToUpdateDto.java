@@ -3,6 +3,7 @@ package com.moskalev.dto.personDto;
 import com.moskalev.entities.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
+import lombok.extern.jackson.Jacksonized;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -16,9 +17,12 @@ import static lombok.AccessLevel.PRIVATE;
  * @since 09.02.22
  * Class  for transfer user data for update in Database
  */
-@Value
+
 @Getter
 @Setter
+@Value
+@Builder
+@Jacksonized
 @AllArgsConstructor(access = PRIVATE)
 @Schema(name = "PersonUpdateInfo", description = "Info about person to create")
 public class PersonToUpdateDto {

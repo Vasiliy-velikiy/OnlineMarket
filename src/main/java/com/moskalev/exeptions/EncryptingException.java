@@ -6,8 +6,8 @@ package com.moskalev.exeptions;
  * @since 21.02.22
  * Class runtime exception if  Encrypting have some problems
  */
-public class EncryptingExсeption extends RuntimeException {
-    public EncryptingExсeption(String message) {
+public class EncryptingException extends RuntimeException {
+    public EncryptingException(String message) {
         super(message);
     }
 }

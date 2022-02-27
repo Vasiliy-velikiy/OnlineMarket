@@ -2,9 +2,8 @@ package com.moskalev.dto.providerDto;
 
 import com.moskalev.validation.annotaton.PhoneNumber;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.extern.jackson.Jacksonized;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -17,6 +16,9 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor(access = PRIVATE)
 @Getter
 @Setter
+@Value
+@Builder
+@Jacksonized
 @Schema(name = "ProviderUpdateInfo", description = "Info about product to update")
 public class ProviderToUpdateDto {
 
