@@ -9,6 +9,7 @@ import com.moskalev.exeptions.ProductException;
 import com.moskalev.mapper.ProductMapper;
 import com.moskalev.repositories.ProductRepository;
 import com.moskalev.repositories.ProviderRepository;
+import com.moskalev.service.ProductService;
 import org.hibernate.Hibernate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -28,7 +29,7 @@ import java.util.Optional;
  */
 @Service
 
-public class ProductServiceImpl  {
+public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     private final ProviderRepository providerRepository;
@@ -46,6 +47,7 @@ public class ProductServiceImpl  {
     /**
      * @return list of all Product in table product
      */
+    @Override
     @Transactional(readOnly = true)
     public Page<Product> readAll() {
         List<Product> listProducts = productRepository.findAll();
@@ -63,6 +65,7 @@ public class ProductServiceImpl  {
      * @return certain Product by article
      * @throws ProductException if  Product not found
      */
+    @Override
     public Product read(String article) {
         Optional<Product> productOptional = productRepository.findByArticleCode(article);
         if (productOptional.isPresent()) {
@@ -80,6 +83,7 @@ public class ProductServiceImpl  {
      * @param newProduct -class that we want to create
      * @throws ProductException if Product with this article code already exists
      */
+    @Override
     public void create(ProductToCreateDto newProduct) {
         Optional<Product> templateProduct = productRepository.findByArticleCode(newProduct.getArticleCode());
         if (!templateProduct.isPresent()) {
@@ -100,6 +104,7 @@ public class ProductServiceImpl  {
      * @param id -certain id code that is unique
      * @throws ProductException if  Product not found
      */
+    @Override
     public void delete(Integer id) {
         Optional<Product> productOptional = productRepository.findById(id);
         if (productOptional.isPresent()) {
@@ -115,6 +120,7 @@ public class ProductServiceImpl  {
      * @param newProduct -new Product that we want to put in database
      * @throws ProductException if Product not found
      */
+    @Override
     public void update(Integer id, ProductToUpdateDto newProduct) {
         Optional<Product> productOptional = productRepository.findById(id);
         if (productOptional.isPresent()) {

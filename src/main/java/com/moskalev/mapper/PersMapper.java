@@ -24,6 +24,12 @@ public interface PersMapper {
     Person fromDto(PersonToCreateDto source);
 
     /**
+     * @param source -PersonToCreateDto object
+     * @return Person object
+     */
+    PersonToUpdateDto toUpdateDto(Person source);
+
+    /**
      * @param source -PersonToUpdateDto object
      * @return Person object
      */

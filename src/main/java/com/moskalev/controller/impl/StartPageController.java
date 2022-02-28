@@ -4,6 +4,7 @@ package com.moskalev.controller.impl;
 import com.moskalev.dto.personDto.PersonSignInDto;
 import com.moskalev.dto.personDto.PersonToCreateDto;
 import com.moskalev.service.PersonService;
+import com.moskalev.service.impl.SignUpServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
@@ -18,25 +19,27 @@ import java.security.NoSuchAlgorithmException;
 @RestController
 @RequestMapping(path = "/api/startPages")
 public class StartPageController {
-    private final PersonService personService;
 
-    public StartPageController(PersonService personService) {
-        this.personService = personService;
+    private final SignUpServiceImpl signUpService;
+
+
+    public StartPageController(SignUpServiceImpl signUpService) {
+        this.signUpService = signUpService;
     }
 
     /**
      * @param newPerson -Person who wants signUp in server
      */
     @PostMapping(path = "/signUp")
-    public void signUp(@RequestBody PersonToCreateDto newPerson) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        personService.create(newPerson);
+    public String signUp(@RequestBody PersonToCreateDto newPerson) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+       return signUpService.signUp(newPerson);
     }
 
     /**
      * @param personSignInDto -person transfers already exist information about personal area
      */
     @PostMapping(path = "/signIn")
-    public void sighIn(@RequestBody PersonSignInDto personSignInDto) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        personService.signIn(personSignInDto.getEmail(), personSignInDto.getPassword());
+    public String sighIn(@RequestBody PersonSignInDto personSignInDto) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+       return signUpService.sighIn(personSignInDto);
     }
 }

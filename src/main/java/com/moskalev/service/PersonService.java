@@ -48,5 +48,5 @@ public interface PersonService {
      * @param email    -already existing email
      * @param password -already existing password
      */
-     void signIn(String email, String password) throws UnsupportedEncodingException, NoSuchAlgorithmException;
+     //void signIn(String email, String password) throws UnsupportedEncodingException, NoSuchAlgorithmException;
 }

@@ -7,6 +7,7 @@ import com.moskalev.exeptions.PersonException;
 import com.moskalev.mapper.PersMapper;
 import com.moskalev.repositories.PersonRepository;
 import com.moskalev.service.PersonService;
+import lombok.Getter;
 import org.hibernate.Hibernate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -44,6 +45,7 @@ public class PersonServiceImpl implements PersonService {
     /**
      * filed describes final variable for encoding-this is salt for byte shift
      */
+    @Getter
     private static final String SALT_FOR_ENCRYPTING_PASSWORD = "mySalt";
 
 
@@ -56,11 +58,12 @@ public class PersonServiceImpl implements PersonService {
     /**
      * @return page of all Person in table person. We used initialize() for fetch List
      */
+    @Override
     public Page<Person> readAll() {
         List<Person> listPersons = personRepository.findAll();
         for (Person personOptional : listPersons) {
-            Hibernate.initialize(personOptional);
-            Hibernate.initialize(personOptional.getOrders());
+          //  Hibernate.initialize(personOptional);
+           // Hibernate.initialize(personOptional.getOrders());
         }
         Pageable firstPageWithTwoElements = PageRequest.of(0, 2);
         return new PageImpl<>(listPersons, firstPageWithTwoElements, listPersons.size());
@@ -72,12 +75,13 @@ public class PersonServiceImpl implements PersonService {
      * @throws PersonException if  User not found
      *                         initialize()-method for fetch List
      */
+    @Override
     public Person read(String email) {
         Optional<Person> personOptional = personRepository.findByEmail(email);
         if (personOptional.isPresent()) {
             Person person = personOptional.get();
-            Hibernate.initialize(person);
-            Hibernate.initialize(person.getOrders());
+//            Hibernate.initialize(person);
+//            Hibernate.initialize(person.getOrders());
             return person;
         } else {
             throw new PersonException(String.format("User with email %s not found", email));
@@ -89,6 +93,7 @@ public class PersonServiceImpl implements PersonService {
      * @throws PersonException if User already exists
      *                         else-create new User. We encrypt passing password and set new password to Database
      */
+    @Override
     public void create(PersonToCreateDto newPersonToCreateDto) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         Optional<Person> templatePerson = personRepository.findByEmail(newPersonToCreateDto.getEmail());
         if (!templatePerson.isPresent()) {
@@ -104,6 +109,7 @@ public class PersonServiceImpl implements PersonService {
      * @param id -certain email
      * @throws PersonException if  Person not found
      */
+    @Override
     public void delete(Integer id) {
         Optional<Person> optionalPerson = personRepository.findById(id);
         if (optionalPerson.isPresent()) {
@@ -119,6 +125,7 @@ public class PersonServiceImpl implements PersonService {
      * @param newPerson -new Person that we want to put in database
      * @throws PersonException if Person not found
      */
+    @Override
     public void update(Integer id, PersonToUpdateDto newPerson) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         Optional<Person> optionalPerson = personRepository.findById(id);
         if (optionalPerson.isPresent()) {
@@ -131,22 +138,5 @@ public class PersonServiceImpl implements PersonService {
         } else {
             throw new PersonException("Person not found");
         }
-    }
-
-    /**
-     * @param email    -already existing email
-     * @param password -already existing password
-     * @throws PersonException if Wrong password
-     * @throws PersonException if User with email not exists
-     */
-    public void signIn(String email, String password) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        Optional<Person> optionalPerson = personRepository.findByEmail(email);
-        if (optionalPerson.isPresent()) {
-            Person person = optionalPerson.get();
-            String encryptionPassword = passwordEncryptionService.hashToHex(password, Optional.of(SALT_FOR_ENCRYPTING_PASSWORD));
-            if (!person.getPassword().equals(encryptionPassword)) {
-                throw new PersonException(String.format("Wrong password, please try again"));
-            }
-        } else throw new PersonException(String.format("User with email %s not found", email));
     }
 }

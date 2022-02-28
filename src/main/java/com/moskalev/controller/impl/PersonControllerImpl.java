@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -57,6 +58,7 @@ public class PersonControllerImpl implements PersonController<Person> {
     @ApiResponse(responseCode = "200", description = "All Users successfully found")
     @ApiResponse(responseCode = "500", description = "Users not found")
     @GetMapping
+    //@PreAuthorize("hasRole('EMPLOYEE') || hasAuthority('ROLE_EMPLOYEE')" )
     public Page<Person> readAll() {
         return personService.readAll();
     }

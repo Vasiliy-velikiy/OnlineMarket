@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -48,6 +49,7 @@ public class ProductControllerImpl  {
     @ApiResponse(responseCode = "200", description = "All products successfully found")
     @ApiResponse(responseCode = "500", description = "Products not found")
     @GetMapping
+    @PreAuthorize("hasRole('EMPLOYEE') || hasAuthority('ROLE_EMPLOYEE')" )
     public Page<Product> readAll() {
         return productServiceImpl.readAll();
     }
@@ -59,6 +61,7 @@ public class ProductControllerImpl  {
     @ApiResponse(responseCode = "200", description = "Product successfully created")
     @ApiResponse(responseCode = "500", description = "Product  already exists")
     @PostMapping
+    @PreAuthorize("hasRole('EMPLOYEE') || hasAuthority('ROLE_EMPLOYEE')" )
     public void create(@RequestBody ProductToCreateDto newProduct) {
         productServiceImpl.create(newProduct);
     }
