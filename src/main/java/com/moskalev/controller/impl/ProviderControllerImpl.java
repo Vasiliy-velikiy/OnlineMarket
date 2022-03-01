@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -37,6 +38,7 @@ public class ProviderControllerImpl implements ProviderController {
     @ApiResponse(responseCode = "200", description = "Provider successfully found")
     @ApiResponse(responseCode = "500", description = "Provider not found")
     @GetMapping(path = "/providerName")
+    @PreAuthorize("hasRole('CUSTOMER') || hasAuthority('ROLE_CUSTOMER')" )
     public ProviderDto read(@RequestParam String providerName) {
         return providerServiceImpl.read(providerName);
     }
@@ -48,6 +50,7 @@ public class ProviderControllerImpl implements ProviderController {
     @ApiResponse(responseCode = "200", description = "All providers successfully found")
     @ApiResponse(responseCode = "500", description = "Providers not found")
     @GetMapping
+    @PreAuthorize("hasRole('CUSTOMER') || hasAuthority('ROLE_CUSTOMER')" )
     public Page<ProviderDto> readAll() {
         return providerServiceImpl.readAll();
     }
@@ -58,6 +61,7 @@ public class ProviderControllerImpl implements ProviderController {
     @ApiResponse(responseCode = "200", description = "Provider successfully created")
     @ApiResponse(responseCode = "500", description = "Provider already exists")
     @PostMapping
+    @PreAuthorize("hasRole('EMPLOYEE') || hasAuthority('ROLE_EMPLOYEE')" )
     public void create(@RequestBody ProviderToCreateDto newProvider) {
         providerServiceImpl.create(newProvider);
     }
@@ -69,6 +73,7 @@ public class ProviderControllerImpl implements ProviderController {
     @ApiResponse(responseCode = "204", description = "Provider successfully deleted")
     @ApiResponse(responseCode = "500", description = "Provider not found")
     @DeleteMapping(path = "/{id}")
+    @PreAuthorize("hasRole('EMPLOYEE') || hasAuthority('ROLE_EMPLOYEE')" )
     public void delete(@PathVariable Integer id) {
         providerServiceImpl.delete(id);
     }
@@ -81,6 +86,7 @@ public class ProviderControllerImpl implements ProviderController {
     @ApiResponse(responseCode = "200", description = "Provider successfully updated")
     @ApiResponse(responseCode = "500", description = "Provider not found")
     @PatchMapping(path = "/{id}")
+    @PreAuthorize("hasRole('EMPLOYEE') || hasAuthority('ROLE_EMPLOYEE')" )
     public void update(@PathVariable Integer id, @RequestBody ProviderDto newProvider) {
         providerServiceImpl.update(id, newProvider);
     }

@@ -3,7 +3,6 @@ package com.moskalev.controller.impl;
 
 import com.moskalev.dto.personDto.PersonSignInDto;
 import com.moskalev.dto.personDto.PersonToCreateDto;
-import com.moskalev.service.PersonService;
 import com.moskalev.service.impl.SignUpServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,26 +19,26 @@ import java.security.NoSuchAlgorithmException;
 @RequestMapping(path = "/api/startPages")
 public class StartPageController {
 
-//    private final SignUpServiceImpl signUpService;
-//
-//
-//    public StartPageController(SignUpServiceImpl signUpService) {
-//        this.signUpService = signUpService;
-//    }
-//
-//    /**
-//     * @param newPerson -Person who wants signUp in server
-//     */
-//    @PostMapping(path = "/signUp")
-//    public String signUp(@RequestBody PersonToCreateDto newPerson) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-//       return signUpService.signUp(newPerson);
-//    }
-//
-//    /**
-//     * @param personSignInDto -person transfers already exist information about personal area
-//     */
-//    @PostMapping(path = "/signIn")
-//    public String sighIn(@RequestBody PersonSignInDto personSignInDto) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-//       return signUpService.sighIn(personSignInDto);
-//    }
+    private final SignUpServiceImpl signUpService;
+
+
+    public StartPageController(SignUpServiceImpl signUpService) {
+        this.signUpService = signUpService;
+    }
+
+    /**
+     * @param newPerson -Person who wants signUp in server
+     */
+    @PostMapping(path = "/signUp")
+    public String signUp(@RequestBody PersonToCreateDto newPerson) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+       return signUpService.signUp(newPerson);
+    }
+
+    /**
+     * @param personSignInDto -person transfers already exist information about personal area
+     */
+    @PostMapping(path = "/signIn")
+    public String sighIn(@RequestBody PersonSignInDto personSignInDto) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+       return signUpService.sighIn(personSignInDto);
+    }
 }

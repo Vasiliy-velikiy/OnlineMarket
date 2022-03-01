@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
@@ -42,6 +43,7 @@ public class PersonControllerImpl implements PersonController {
     @ApiResponse(responseCode = "200", description = "User successfully found")
     @ApiResponse(responseCode = "500", description = "User not found")
     @GetMapping(path = "/email")
+    @PreAuthorize("hasRole('ADMIN') || hasAuthority('ROLE_ADMIN')" )
     public PersonDto read(@RequestParam(name = "email") String email) {
         return personService.read(email);
     }
@@ -53,7 +55,7 @@ public class PersonControllerImpl implements PersonController {
     @ApiResponse(responseCode = "200", description = "All Users successfully found")
     @ApiResponse(responseCode = "500", description = "Users not found")
     @GetMapping
-    //@PreAuthorize("hasRole('EMPLOYEE') || hasAuthority('ROLE_EMPLOYEE')" )
+    @PreAuthorize("hasRole('ADMIN') || hasAuthority('ROLE_ADMIN')" )
     public Page<PersonDto> readAll() {
         return personService.readAll();
     }
@@ -65,6 +67,7 @@ public class PersonControllerImpl implements PersonController {
     @ApiResponse(responseCode = "200", description = "User successfully created")
     @ApiResponse(responseCode = "500", description = "User already exists")
     @PostMapping
+    @PreAuthorize("hasRole('CUSTOMER') || hasAuthority('ROLE_CUSTOMER') || hasRole('ADMIN') || hasAuthority('ROLE_ADMIN') || hasRole('EMPLOYEE') || hasAuthority('ROLE_EMPLOYEE')" )
     public void create(@Valid @RequestBody PersonToCreateDto person) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         personService.create(person);
     }
@@ -75,6 +78,7 @@ public class PersonControllerImpl implements PersonController {
     @Operation(description = "Delete user by id")
     @ApiResponse(responseCode = "204", description = "User successfully deleted")
     @DeleteMapping(path = "/{id}")
+    @PreAuthorize("hasRole('ADMIN') || hasAuthority('ROLE_ADMIN')" )
     public void delete(@PathVariable Integer id) {
         personService.delete(id);
     }
@@ -86,6 +90,7 @@ public class PersonControllerImpl implements PersonController {
     @Operation(description = "Update user")
     @ApiResponse(responseCode = "200", description = "User successfully updated")
     @PatchMapping(path = "/{id}")
+    @PreAuthorize("hasRole('CUSTOMER') || hasAuthority('ROLE_CUSTOMER') || hasRole('ADMIN') || hasAuthority('ROLE_ADMIN') || hasRole('EMPLOYEE') || hasAuthority('ROLE_EMPLOYEE')" )
     public void update(@PathVariable Integer id, @RequestBody PersonDto newPerson) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         personService.update(id, newPerson);
     }

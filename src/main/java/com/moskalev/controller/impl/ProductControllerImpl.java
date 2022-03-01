@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -37,6 +38,7 @@ public class ProductControllerImpl {
     @ApiResponse(responseCode = "200", description = "Product successfully found")
     @ApiResponse(responseCode = "500", description = "Product not found")
     @GetMapping(path = "/article")
+    @PreAuthorize("hasRole('CUSTOMER') || hasAuthority('ROLE_CUSTOMER')" )
     public ProductDto read(@RequestParam String article) {
         return productServiceImpl.read(article);
     }
@@ -48,7 +50,7 @@ public class ProductControllerImpl {
     @ApiResponse(responseCode = "200", description = "All products successfully found")
     @ApiResponse(responseCode = "500", description = "Products not found")
     @GetMapping
-    // @PreAuthorize("hasRole('EMPLOYEE') || hasAuthority('ROLE_EMPLOYEE')" )
+    @PreAuthorize("hasRole('CUSTOMER') || hasAuthority('ROLE_CUSTOMER')" )
     public Page<ProductDto> readAll() {
         return productServiceImpl.readAll();
     }
@@ -60,7 +62,7 @@ public class ProductControllerImpl {
     @ApiResponse(responseCode = "200", description = "Product successfully created")
     @ApiResponse(responseCode = "500", description = "Product  already exists")
     @PostMapping
-    //@PreAuthorize("hasRole('EMPLOYEE') || hasAuthority('ROLE_EMPLOYEE')" )
+    @PreAuthorize("hasRole('EMPLOYEE') || hasAuthority('ROLE_EMPLOYEE')" )
     public void create(@RequestBody ProductToCreateDto newProduct) {
         productServiceImpl.create(newProduct);
     }
@@ -72,6 +74,7 @@ public class ProductControllerImpl {
     @ApiResponse(responseCode = "204", description = "Product successfully deleted")
     @ApiResponse(responseCode = "500", description = "Product not found")
     @DeleteMapping(path = "/{id}")
+    @PreAuthorize("hasRole('EMPLOYEE') || hasAuthority('ROLE_EMPLOYEE')" )
     public void delete(@PathVariable Integer id) {
         productServiceImpl.delete(id);
     }
@@ -84,6 +87,7 @@ public class ProductControllerImpl {
     @ApiResponse(responseCode = "200", description = "Product successfully updated")
     @ApiResponse(responseCode = "500", description = "Product not found")
     @PatchMapping(path = "/{id}")
+    @PreAuthorize("hasRole('EMPLOYEE') || hasAuthority('ROLE_EMPLOYEE')" )
     public void update(@PathVariable Integer id, @RequestBody ProductDto newProduct) {
         productServiceImpl.update(id, newProduct);
     }

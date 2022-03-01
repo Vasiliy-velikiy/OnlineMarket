@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -35,6 +36,7 @@ public class OrderControllerImpl implements OrderController {
     @ApiResponse(responseCode = "200", description = "Order successfully created")
     @ApiResponse(responseCode = "500", description = "Order already exists")
     @PostMapping(path = "/create")
+    @PreAuthorize("hasRole('CUSTOMER') || hasAuthority('ROLE_CUSTOMER') || hasRole('ADMIN') || hasAuthority('ROLE_ADMIN')" )
     public void create(@RequestBody OrderToCreateDto orderToCreateDto) {
         orderService.create(orderToCreateDto);
     }
@@ -46,6 +48,7 @@ public class OrderControllerImpl implements OrderController {
     @ApiResponse(responseCode = "204", description = "order successfully deleted")
     @ApiResponse(responseCode = "404", description = "order not found")
     @DeleteMapping(path = "/{id}")
+    @PreAuthorize("hasRole('CUSTOMER') || hasAuthority('ROLE_CUSTOMER')" )
     public void delete(@PathVariable Integer id) {
         orderService.delete(id);
     }
@@ -57,6 +60,7 @@ public class OrderControllerImpl implements OrderController {
     @ApiResponse(responseCode = "200", description = "Order successfully created")
     @ApiResponse(responseCode = "500", description = "Order already exists")
     @PostMapping(path = "/addOrderAndProducts")
+    @PreAuthorize("hasRole('CUSTOMER') || hasAuthority('ROLE_CUSTOMER')" )
     public void addOrderAndProducts(@RequestBody OneProductInOrderDto oneProductInOrderDto) {
         orderService.addProductInOrder(oneProductInOrderDto);
     }
@@ -68,6 +72,7 @@ public class OrderControllerImpl implements OrderController {
     @ApiResponse(responseCode = "200", description = "Order successfully created")
     @ApiResponse(responseCode = "500", description = "Order already exists")
     @PostMapping(path = "/addListOfProducts")
+    @PreAuthorize("hasRole('CUSTOMER') || hasAuthority('ROLE_CUSTOMER')" )
     public void addOListOfProducts(@RequestBody ListOfProductsDto listOfProductsDto) {
         orderService.addListOfProducts(listOfProductsDto);
     }
