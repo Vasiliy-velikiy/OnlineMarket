@@ -2,9 +2,7 @@ package com.moskalev.service;
 
 
 import com.moskalev.dto.productDto.ProductToCreateDto;
-import com.moskalev.dto.productDto.ProductToUpdateDto;
-import com.moskalev.entities.Product;
-import com.moskalev.exeptions.ProductException;
+import com.moskalev.dto.productDto.ProductDto;
 import org.springframework.data.domain.Page;
 
 /**
@@ -14,21 +12,20 @@ import org.springframework.data.domain.Page;
  * Class interface for PersonServiceImpl
  */
 public interface ProductService {
+
     /**
      * @return list of all Product in table product
      */
-    Page<Product> readAll();
+    Page<ProductDto> readAll();
 
     /**
      * @param article - certain article that is unique
      * @return certain Product by article
-     * @throws ProductException if  Product not found
      */
-    Product read(String article);
+    ProductDto read(String article);
 
     /**
      * @param newProduct -class that we want to create
-     * @throws ProductException if Product with this article code already exists
      */
     void create(ProductToCreateDto newProduct);
 
@@ -41,5 +38,6 @@ public interface ProductService {
      * @param id         -certain id Product
      * @param newProduct -new Product that we want to put in database
      */
-    void update(Integer id, ProductToUpdateDto newProduct);
+    void update(Integer id, ProductDto newProduct);
+
 }

@@ -1,9 +1,8 @@
 package com.moskalev.service;
 
 
+import com.moskalev.dto.personDto.PersonDto;
 import com.moskalev.dto.personDto.PersonToCreateDto;
-import com.moskalev.dto.personDto.PersonToUpdateDto;
-import com.moskalev.entities.Person;
 import org.springframework.data.domain.Page;
 
 import java.io.UnsupportedEncodingException;
@@ -20,13 +19,13 @@ public interface PersonService {
     /**
      * @return page of all Person in table person. We used initialize() for fetch List
      */
-    Page<Person> readAll();
+    Page<PersonDto> readAll();
 
     /**
      * @param email certain email that is unique
      * @return certain Person by email
      */
-    Person read(String email);
+    PersonDto read(String email);
 
     /**
      * @param newPersonToCreateDto -class of Person.
@@ -42,11 +41,6 @@ public interface PersonService {
      * @param id        -certain email
      * @param newPerson -new Person that we want to put in database
      */
-     void update(Integer id, PersonToUpdateDto newPerson) throws UnsupportedEncodingException, NoSuchAlgorithmException;
+    void update(Integer id, PersonDto newPerson) throws UnsupportedEncodingException, NoSuchAlgorithmException;
 
-    /**
-     * @param email    -already existing email
-     * @param password -already existing password
-     */
-     //void signIn(String email, String password) throws UnsupportedEncodingException, NoSuchAlgorithmException;
 }

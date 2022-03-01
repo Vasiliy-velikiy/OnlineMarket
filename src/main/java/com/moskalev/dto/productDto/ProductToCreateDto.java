@@ -33,8 +33,8 @@ public class ProductToCreateDto {
     @NotBlank
     Double purchasePrice;
 
-    @Schema(description = "provider id", required = true)
-    private Integer providerId;
+    @Schema(description = "provider name", required = true)
+    private String providerName;
 
     @Schema(description = "description", required = true)
     private String description;
@@ -42,6 +42,4 @@ public class ProductToCreateDto {
     @Schema(description = "article code", required = true)
     @NotBlank
     private String articleCode;
-
-
 }

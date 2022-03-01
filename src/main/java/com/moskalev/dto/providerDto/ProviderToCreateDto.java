@@ -4,9 +4,7 @@ import com.moskalev.validation.annotaton.PhoneNumber;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
-
 import javax.validation.constraints.NotBlank;
-
 import static lombok.AccessLevel.PRIVATE;
 
 /**
@@ -36,4 +34,5 @@ public class ProviderToCreateDto {
     @NotBlank
     @PhoneNumber
     private String phoneNumber;
+
 }

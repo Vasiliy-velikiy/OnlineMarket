@@ -2,8 +2,7 @@ package com.moskalev.controller;
 
 
 import com.moskalev.dto.productDto.ProductToCreateDto;
-import com.moskalev.dto.productDto.ProductToUpdateDto;
-import com.moskalev.entities.Product;
+import com.moskalev.dto.productDto.ProductDto;
 import org.springframework.data.domain.Page;
 
 /**
@@ -18,12 +17,12 @@ public interface ProductController {
      * @param article -certain article that is unique
      * @return -certain product that we want to get
      */
-    Product read(String article);
+    ProductDto read(String article);
 
     /**
      * @return list of Product
      */
-    Page<Product> readAll();
+    Page<ProductDto> readAll();
 
     /**
      * @param newProduct -object that we want to create
@@ -39,5 +38,5 @@ public interface ProductController {
      * @param id                -certain  id that is unique
      * @param newProduct-object that we want to update
      */
-    void update(Integer id, ProductToUpdateDto newProduct);
+    void update(Integer id, ProductDto newProduct);
 }

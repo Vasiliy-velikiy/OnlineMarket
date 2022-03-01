@@ -1,8 +1,8 @@
 package com.moskalev.controller;
 
 
+import com.moskalev.dto.personDto.PersonDto;
 import com.moskalev.dto.personDto.PersonToCreateDto;
-import com.moskalev.dto.personDto.PersonToUpdateDto;
 import org.springframework.data.domain.Page;
 
 import java.io.UnsupportedEncodingException;
@@ -20,12 +20,12 @@ public interface PersonController<Person> {
      * @param email -certain email that is unique
      * @return -certain product that we want to get
      */
-    Person read(String email);
+    PersonDto read(String email);
 
     /**
      * @return page of Persons
      */
-    Page<Person> readAll();
+    Page<PersonDto> readAll();
 
     /**
      * @param person -object that we want to create
@@ -41,5 +41,6 @@ public interface PersonController<Person> {
      * @param id               -certain name that is unique
      * @param newPerson-object that we want to update
      */
-    void update(Integer id, PersonToUpdateDto newPerson) throws UnsupportedEncodingException, NoSuchAlgorithmException;
+    void update(Integer id, PersonDto newPerson) throws UnsupportedEncodingException, NoSuchAlgorithmException;
+
 }

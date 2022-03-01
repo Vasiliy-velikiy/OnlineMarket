@@ -1,9 +1,9 @@
 package com.moskalev.controller;
 
-import com.moskalev.dto.orderDto.ListOfProductsDto;
-import com.moskalev.dto.orderDto.OneProductToAddInOrderDto;
-import com.moskalev.dto.orderDto.OrderDto;
 
+import com.moskalev.dto.orderDto.ListOfProductsDto;
+import com.moskalev.dto.orderDto.OneProductInOrderDto;
+import com.moskalev.dto.orderDto.OrderToCreateDto;
 
 /**
  * @author Vasiliy Moskalev
@@ -14,9 +14,9 @@ import com.moskalev.dto.orderDto.OrderDto;
 public interface OrderController {
 
     /**
-     * @param orderDto -order that we want to create
+     * @param orderToCreateDto -order that we want to create
      */
-    void create(OrderDto orderDto);
+    void create(OrderToCreateDto orderToCreateDto);
 
     /**
      * @param id -order that we want to delete
@@ -24,9 +24,9 @@ public interface OrderController {
     void delete(Integer id);
 
     /**
-     * @param oneProductToAddInOrderDto -order with product that we want to create
+     * @param oneProductInOrderDto o -order with product that we want to create
      */
-    void addOrderAndProducts(OneProductToAddInOrderDto oneProductToAddInOrderDto);
+    void addOrderAndProducts(OneProductInOrderDto oneProductInOrderDto);
 
     /**
      * @param listOfProductsDto -order with list of product that we want to create

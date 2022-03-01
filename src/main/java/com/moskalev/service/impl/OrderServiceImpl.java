@@ -1,18 +1,19 @@
 package com.moskalev.service.impl;
 
-import com.moskalev.dto.orderDto.OneProductToAddInOrderDto;
 import com.moskalev.dto.orderDto.ListOfProductsDto;
-import com.moskalev.dto.orderDto.OrderDto;
+import com.moskalev.dto.orderDto.OneProductInOrderDto;
+import com.moskalev.dto.orderDto.OrderToCreateDto;
 import com.moskalev.entities.Order;
 import com.moskalev.entities.Person;
 import com.moskalev.entities.Product;
 import com.moskalev.exeptions.OrderException;
-import com.moskalev.mapper.OrderMapper;
+import com.moskalev.mapper.MergeOrderMapper;
+import com.moskalev.mapper.impl.OrderMapper;
 import com.moskalev.repositories.OrderRepository;
 import com.moskalev.repositories.PersonRepository;
 import com.moskalev.repositories.ProductRepository;
 import com.moskalev.service.OrderService;
-import org.hibernate.Hibernate;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -27,28 +28,27 @@ import java.util.Optional;
  */
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
+
     private final ProductRepository productRepository;
+
     private final PersonRepository personRepository;
+
+    private final MergeOrderMapper mergeOrderMapper;
+
     private final OrderMapper orderMapper;
 
-    public OrderServiceImpl(OrderRepository orderRepository, ProductRepository productRepository, PersonRepository personRepository, OrderMapper orderMapper) {
-        this.orderRepository = orderRepository;
-        this.productRepository = productRepository;
-        this.personRepository = personRepository;
-        this.orderMapper = orderMapper;
-    }
-
     /**
-     * @param orderDto -order that we want to create
+     * @param orderToCreateDto -order that we want to create
      * @throws OrderException if person not exists in persons table
      */
     @Override
-    public void create(OrderDto orderDto) {
-        Optional<Person> person = personRepository.findById(orderDto.getPersonId());
+    public void create(OrderToCreateDto orderToCreateDto) {
+        Optional<Person> person = personRepository.findById(orderToCreateDto.getPersonId());
         if (person.isPresent()) {
-            Order order = orderMapper.fromDto(orderDto);
+            Order order = orderMapper.fromCreateDto(orderToCreateDto);
             order.setOwner(person.get());
             orderRepository.save(order);
         } else {
@@ -76,14 +76,12 @@ public class OrderServiceImpl implements OrderService {
      * @throws OrderException if Number of Order or number of product not found
      */
     @Override
-    public void addOrderAndProducts(OneProductToAddInOrderDto orderDto) {
+    public void addProductInOrder(OneProductInOrderDto orderDto) {
         Optional<Order> optionalOrder = orderRepository.findById(orderDto.getOrderId());
         Optional<Product> optionalProduct = productRepository.findById(orderDto.getProductId());
         if (optionalOrder.isPresent() && optionalProduct.isPresent()) {
             Product product = optionalProduct.get();
-            Hibernate.initialize(product);
             Order order = optionalOrder.get();
-            Hibernate.initialize(order);
             product.addOrder(order);
             order.addProducts(product);
         } else {
@@ -103,9 +101,7 @@ public class OrderServiceImpl implements OrderService {
             Optional<Product> optionalProduct = productRepository.findById(productId);
             if (optionalOrder.isPresent() && optionalProduct.isPresent()) {
                 Product product = optionalProduct.get();
-                Hibernate.initialize(product);
                 Order order = optionalOrder.get();
-                Hibernate.initialize(order);
                 product.addOrder(order);
                 order.addProducts(product);
             } else {

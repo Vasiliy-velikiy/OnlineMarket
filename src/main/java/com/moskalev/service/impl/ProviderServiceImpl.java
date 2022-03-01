@@ -1,14 +1,15 @@
 package com.moskalev.service.impl;
 
 
+import com.moskalev.dto.providerDto.ProviderDto;
 import com.moskalev.dto.providerDto.ProviderToCreateDto;
-import com.moskalev.dto.providerDto.ProviderToUpdateDto;
 import com.moskalev.entities.Provider;
-import com.moskalev.mapper.ProviderMapper;
+import com.moskalev.exeptions.ProviderException;
+import com.moskalev.mapper.MergeProviderMapper;
+import com.moskalev.mapper.impl.ProviderMapper;
 import com.moskalev.repositories.ProviderRepository;
 
 import com.moskalev.service.ProviderService;
-import org.hibernate.Hibernate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -16,9 +17,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.security.ProviderException;
-import java.util.Optional;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Vasiliy Moskalev
@@ -29,28 +29,25 @@ import java.util.List;
 @Service
 @Transactional
 public class ProviderServiceImpl implements ProviderService {
+
     private ProviderRepository providerRepository;
 
-    /**
-     * filed describes object for convert
-     */
-    private final ProviderMapper objectMapper;
+    private final MergeProviderMapper objectMapper;
 
-    public ProviderServiceImpl(ProviderRepository providerRepository, ProviderMapper objectMapper) {
+    private final ProviderMapper providerMapper;
+
+    public ProviderServiceImpl(ProviderRepository providerRepository, MergeProviderMapper objectMapper, ProviderMapper providerMapper) {
         this.providerRepository = providerRepository;
         this.objectMapper = objectMapper;
+        this.providerMapper = providerMapper;
     }
 
     /**
-     * @return page of all Providers in table provider
+     * @return page of all Providers from table provider
      */
-    public Page<Provider> readAll() {
-        List<Provider> listProviders = providerRepository.findAll();
-        for (Provider providerOptional : listProviders) {
-           // Hibernate.initialize(providerOptional);
-            Hibernate.initialize(providerOptional.getProductsOfProvider());
-        }
-        Pageable firstPageWithTwoElements = PageRequest.of(0, 2);
+    public Page<ProviderDto> readAll() {
+        List<ProviderDto> listProviders = providerMapper.convertListToDto(providerRepository.findAll());
+        Pageable firstPageWithTwoElements = PageRequest.of(0, listProviders.size());
         return new PageImpl<>(listProviders, firstPageWithTwoElements, listProviders.size());
     }
 
@@ -59,14 +56,13 @@ public class ProviderServiceImpl implements ProviderService {
      * @return certain Provider by article
      * @throws ProviderException if  Product not found
      */
-    public Provider read(String providerName) {
+    public ProviderDto read(String providerName) {
         Optional<Provider> providerOptional = providerRepository.findByProviderName(providerName);
         if (providerOptional.isPresent()) {
-            Provider provider = providerOptional.get();
-            Hibernate.initialize(provider);
-           // Hibernate.initialize(provider.getProductsOfProvider());
-            return provider;
-        } else {throw new ProviderException(String.format("Provider with id %s not found", providerName));}
+            return providerMapper.toDto(providerOptional.get());
+        } else {
+            throw new ProviderException(String.format("Provider with id %s not found", providerName));
+        }
     }
 
     /**
@@ -76,7 +72,7 @@ public class ProviderServiceImpl implements ProviderService {
     public void create(ProviderToCreateDto provider) {
         Optional<Provider> templateProvider = providerRepository.findByProviderName(provider.getProviderName());
         if (!templateProvider.isPresent()) {
-            Provider newProvider = objectMapper.fromDto(provider);
+            Provider newProvider = providerMapper.fromCreateDto(provider);
             providerRepository.save(newProvider);
         } else {
             throw new ProviderException(String.format("Provider with name:  %s already exists", provider.getProviderName()));
@@ -102,11 +98,11 @@ public class ProviderServiceImpl implements ProviderService {
      * @param newProvider -new Provider that we want to put in database
      * @throws ProviderException if Provider not found
      */
-    public void update(Integer id, ProviderToUpdateDto newProvider) {
+    public void update(Integer id, ProviderDto newProvider) {
         Optional<Provider> providerOptional = providerRepository.findById(id);
         if (providerOptional.isPresent()) {
             Provider target = providerOptional.get();
-            Provider source = objectMapper.fromUpdateDto(newProvider);
+            Provider source = providerMapper.fromDto(newProvider);
             providerRepository.save(objectMapper.merge(target, source));
         } else {
             throw new ProviderException("Product not found");

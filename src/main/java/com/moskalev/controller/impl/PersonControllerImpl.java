@@ -2,23 +2,17 @@ package com.moskalev.controller.impl;
 
 
 import com.moskalev.controller.PersonController;
-
+import com.moskalev.dto.personDto.PersonDto;
 import com.moskalev.dto.personDto.PersonToCreateDto;
-import com.moskalev.dto.personDto.PersonToUpdateDto;
-import com.moskalev.entities.Person;
 import com.moskalev.service.PersonService;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-
 
 /**
  * @author Vasiliy Moskalev
@@ -32,7 +26,8 @@ import java.security.NoSuchAlgorithmException;
 @ApiResponse(responseCode = "500", description = "Internal error")
 @ApiResponse(responseCode = "400", description = "Validation failed")
 @ApiResponse(responseCode = "404", description = "User not found")
-public class PersonControllerImpl implements PersonController<Person> {
+public class PersonControllerImpl implements PersonController {
+
     private final PersonService personService;
 
     public PersonControllerImpl(PersonService personService) {
@@ -47,7 +42,7 @@ public class PersonControllerImpl implements PersonController<Person> {
     @ApiResponse(responseCode = "200", description = "User successfully found")
     @ApiResponse(responseCode = "500", description = "User not found")
     @GetMapping(path = "/email")
-    public Person read(@RequestParam(name = "email") String email) {
+    public PersonDto read(@RequestParam(name = "email") String email) {
         return personService.read(email);
     }
 
@@ -59,10 +54,9 @@ public class PersonControllerImpl implements PersonController<Person> {
     @ApiResponse(responseCode = "500", description = "Users not found")
     @GetMapping
     //@PreAuthorize("hasRole('EMPLOYEE') || hasAuthority('ROLE_EMPLOYEE')" )
-    public Page<Person> readAll() {
+    public Page<PersonDto> readAll() {
         return personService.readAll();
     }
-
 
     /**
      * @param person -object that we want to create
@@ -86,13 +80,13 @@ public class PersonControllerImpl implements PersonController<Person> {
     }
 
     /**
-     * @param id -certain name that is unique
+     * @param id               -certain name that is unique
      * @param newPerson-object that we want to update
      */
     @Operation(description = "Update user")
     @ApiResponse(responseCode = "200", description = "User successfully updated")
     @PatchMapping(path = "/{id}")
-    public void update(@PathVariable Integer id, @RequestBody PersonToUpdateDto newPerson) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public void update(@PathVariable Integer id, @RequestBody PersonDto newPerson) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         personService.update(id, newPerson);
     }
 }

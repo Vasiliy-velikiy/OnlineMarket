@@ -4,6 +4,7 @@ import com.moskalev.entities.Provider;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -20,4 +21,6 @@ public interface ProviderRepository extends JpaRepository<Provider, Integer> {
      * @return object of Optional for  null-safety
      */
     Optional<Provider> findByProviderName(String name);
+
+    List<Provider> findAll();
 }

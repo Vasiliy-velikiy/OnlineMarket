@@ -3,9 +3,7 @@ package com.moskalev.dto.providerDto;
 import com.moskalev.validation.annotaton.PhoneNumber;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
-import lombok.extern.jackson.Jacksonized;
-
-import static lombok.AccessLevel.PRIVATE;
+import java.util.HashMap;
 
 /**
  * @author Vasiliy  Moskalev
@@ -13,14 +11,11 @@ import static lombok.AccessLevel.PRIVATE;
  * @since 24.02.22
  * Class  for transfer provider data for create in Database
  */
-@AllArgsConstructor(access = PRIVATE)
+@RequiredArgsConstructor
 @Getter
 @Setter
-@Value
-@Builder
-@Jacksonized
 @Schema(name = "ProviderUpdateInfo", description = "Info about product to update")
-public class ProviderToUpdateDto {
+public class ProviderDto {
 
     @Schema(description = "provider name")
     private String providerName;
@@ -31,4 +26,7 @@ public class ProviderToUpdateDto {
     @Schema(description = "phone number")
     @PhoneNumber
     private String phoneNumber;
+
+    @Schema(description = "name And Article of Products")
+    HashMap<String, String> nameAndArticleProducts;
 }

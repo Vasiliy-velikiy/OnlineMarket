@@ -1,6 +1,5 @@
 package com.moskalev.dto.orderDto;
 
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
@@ -11,7 +10,7 @@ import static lombok.AccessLevel.PRIVATE;
  * @author Vasiliy Moskalev
  * @version 1.1
  * @since 25.02.22
- * Class dto for transfer id of certain person
+ * Class dto for transfer  id of certain product and id if certain order
  */
 @Getter
 @Setter
@@ -19,9 +18,12 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @Jacksonized
 @AllArgsConstructor(access = PRIVATE)
-@Schema(name = "info about order", description = "Info about of certain order and certain owner")
-public class OrderDto {
+@Schema(name = "Info about one product in order", description = "Info about of certain product and certain order")
+public class OneProductInOrderDto {
 
     @Schema(description = "productId")
-    private Integer personId;
+    Integer productId;
+
+    @Schema(description = "orderId")
+    Integer orderId;
 }

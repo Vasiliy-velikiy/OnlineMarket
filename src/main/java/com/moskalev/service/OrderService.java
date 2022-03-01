@@ -1,8 +1,8 @@
 package com.moskalev.service;
 
 import com.moskalev.dto.orderDto.ListOfProductsDto;
-import com.moskalev.dto.orderDto.OneProductToAddInOrderDto;
-import com.moskalev.dto.orderDto.OrderDto;
+import com.moskalev.dto.orderDto.OneProductInOrderDto;
+import com.moskalev.dto.orderDto.OrderToCreateDto;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,19 +15,19 @@ import org.springframework.stereotype.Service;
 public interface OrderService {
 
     /**
-     * @param orderDto -order that we want to create
+     * @param orderToCreateDto -order that we want to create
      */
-     void create(OrderDto orderDto);
+    void create(OrderToCreateDto orderToCreateDto);
 
     /**
      * @param id -order that we want to delete
      */
-     void delete(Integer id);
+    void delete(Integer id);
 
     /**
      * @param orderDto -order with product that we want to create
      */
-     void addOrderAndProducts(OneProductToAddInOrderDto orderDto);
+     void addProductInOrder(OneProductInOrderDto orderDto);
 
     /**
      * @param listOfProductsDto-order with list of products that we want to create

@@ -1,19 +1,17 @@
 package com.moskalev.controller.impl;
 
 import com.moskalev.dto.productDto.ProductToCreateDto;
-import com.moskalev.dto.productDto.ProductToUpdateDto;
-import com.moskalev.entities.Product;
-import com.moskalev.service.impl.ProductServiceImpl;
+import com.moskalev.dto.productDto.ProductDto;
+import com.moskalev.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * @version 1.1
- * * @author Vasiliy  Moskalev
+ * * @author Vasiliy Moskalev
  * @since 09.02.22
  * Class controller for handling requests to productRepository through the productService
  */
@@ -23,10 +21,11 @@ import org.springframework.web.bind.annotation.*;
 @ApiResponse(responseCode = "500", description = "Internal error")
 @ApiResponse(responseCode = "400", description = "Validation failed")
 @ApiResponse(responseCode = "404", description = "Product not found")
-public class ProductControllerImpl  {
-    private final ProductServiceImpl productServiceImpl;
+public class ProductControllerImpl {
 
-    public ProductControllerImpl(ProductServiceImpl productServiceImpl) {
+    private final ProductService productServiceImpl;
+
+    public ProductControllerImpl(ProductService productServiceImpl) {
         this.productServiceImpl = productServiceImpl;
     }
 
@@ -38,7 +37,7 @@ public class ProductControllerImpl  {
     @ApiResponse(responseCode = "200", description = "Product successfully found")
     @ApiResponse(responseCode = "500", description = "Product not found")
     @GetMapping(path = "/article")
-    public Product read(@RequestParam String article) {
+    public ProductDto read(@RequestParam String article) {
         return productServiceImpl.read(article);
     }
 
@@ -49,8 +48,8 @@ public class ProductControllerImpl  {
     @ApiResponse(responseCode = "200", description = "All products successfully found")
     @ApiResponse(responseCode = "500", description = "Products not found")
     @GetMapping
-    @PreAuthorize("hasRole('EMPLOYEE') || hasAuthority('ROLE_EMPLOYEE')" )
-    public Page<Product> readAll() {
+    // @PreAuthorize("hasRole('EMPLOYEE') || hasAuthority('ROLE_EMPLOYEE')" )
+    public Page<ProductDto> readAll() {
         return productServiceImpl.readAll();
     }
 
@@ -61,13 +60,13 @@ public class ProductControllerImpl  {
     @ApiResponse(responseCode = "200", description = "Product successfully created")
     @ApiResponse(responseCode = "500", description = "Product  already exists")
     @PostMapping
-    @PreAuthorize("hasRole('EMPLOYEE') || hasAuthority('ROLE_EMPLOYEE')" )
+    //@PreAuthorize("hasRole('EMPLOYEE') || hasAuthority('ROLE_EMPLOYEE')" )
     public void create(@RequestBody ProductToCreateDto newProduct) {
         productServiceImpl.create(newProduct);
     }
 
     /**
-     * @param  id -object that we want to delete
+     * @param id -object that we want to delete
      */
     @Operation(description = "Delete product by id")
     @ApiResponse(responseCode = "204", description = "Product successfully deleted")
@@ -78,14 +77,14 @@ public class ProductControllerImpl  {
     }
 
     /**
-     * @param  id       -certain  id that is unique
+     * @param id                -certain  id that is unique
      * @param newProduct-object that we want to update
      */
     @Operation(description = "Update product")
     @ApiResponse(responseCode = "200", description = "Product successfully updated")
     @ApiResponse(responseCode = "500", description = "Product not found")
     @PatchMapping(path = "/{id}")
-    public void update(@PathVariable Integer id, @RequestBody ProductToUpdateDto newProduct) {
+    public void update(@PathVariable Integer id, @RequestBody ProductDto newProduct) {
         productServiceImpl.update(id, newProduct);
     }
 }

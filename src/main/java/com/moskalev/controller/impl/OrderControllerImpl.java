@@ -1,13 +1,14 @@
 package com.moskalev.controller.impl;
 
 import com.moskalev.controller.OrderController;
-import com.moskalev.dto.orderDto.OneProductToAddInOrderDto;
 import com.moskalev.dto.orderDto.ListOfProductsDto;
-import com.moskalev.dto.orderDto.OrderDto;
+import com.moskalev.dto.orderDto.OneProductInOrderDto;
+import com.moskalev.dto.orderDto.OrderToCreateDto;
 import com.moskalev.service.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 25.02.22
  * Class controller for handling requests to buy products
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping(path = "/api/order")
 @Tag(name = "Order", description = "this is order controller")
@@ -23,21 +25,18 @@ import org.springframework.web.bind.annotation.*;
 @ApiResponse(responseCode = "400", description = "Validation failed")
 @ApiResponse(responseCode = "404", description = "Order not found")
 public class OrderControllerImpl implements OrderController {
+
     private final OrderService orderService;
 
-    public OrderControllerImpl(OrderService orderService) {
-        this.orderService = orderService;
-    }
-
     /**
-     * @param orderDto -order that we want to create
+     * @param orderToCreateDto -order that we want to create
      */
     @Operation(description = "Create order")
     @ApiResponse(responseCode = "200", description = "Order successfully created")
     @ApiResponse(responseCode = "500", description = "Order already exists")
     @PostMapping(path = "/create")
-    public void create(@RequestBody OrderDto orderDto) {
-        orderService.create(orderDto);
+    public void create(@RequestBody OrderToCreateDto orderToCreateDto) {
+        orderService.create(orderToCreateDto);
     }
 
     /**
@@ -52,14 +51,14 @@ public class OrderControllerImpl implements OrderController {
     }
 
     /**
-     * @param oneProductToAddInOrderDto -order with product that we want to create
+     * @param oneProductInOrderDto -order with product that we want to create
      */
     @Operation(description = "Create order")
     @ApiResponse(responseCode = "200", description = "Order successfully created")
     @ApiResponse(responseCode = "500", description = "Order already exists")
     @PostMapping(path = "/addOrderAndProducts")
-    public void addOrderAndProducts(@RequestBody OneProductToAddInOrderDto oneProductToAddInOrderDto) {
-        orderService.addOrderAndProducts(oneProductToAddInOrderDto);
+    public void addOrderAndProducts(@RequestBody OneProductInOrderDto oneProductInOrderDto) {
+        orderService.addProductInOrder(oneProductInOrderDto);
     }
 
     /**

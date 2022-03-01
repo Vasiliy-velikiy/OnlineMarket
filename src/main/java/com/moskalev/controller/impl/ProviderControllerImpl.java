@@ -1,9 +1,8 @@
 package com.moskalev.controller.impl;
 
 import com.moskalev.controller.ProviderController;
+import com.moskalev.dto.providerDto.ProviderDto;
 import com.moskalev.dto.providerDto.ProviderToCreateDto;
-import com.moskalev.dto.providerDto.ProviderToUpdateDto;
-import com.moskalev.entities.Provider;
 import com.moskalev.service.ProviderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -38,7 +37,7 @@ public class ProviderControllerImpl implements ProviderController {
     @ApiResponse(responseCode = "200", description = "Provider successfully found")
     @ApiResponse(responseCode = "500", description = "Provider not found")
     @GetMapping(path = "/providerName")
-    public Provider read(@RequestParam String providerName) {
+    public ProviderDto read(@RequestParam String providerName) {
         return providerServiceImpl.read(providerName);
     }
 
@@ -49,7 +48,7 @@ public class ProviderControllerImpl implements ProviderController {
     @ApiResponse(responseCode = "200", description = "All providers successfully found")
     @ApiResponse(responseCode = "500", description = "Providers not found")
     @GetMapping
-    public Page<Provider> readAll() {
+    public Page<ProviderDto> readAll() {
         return providerServiceImpl.readAll();
     }
 
@@ -82,7 +81,7 @@ public class ProviderControllerImpl implements ProviderController {
     @ApiResponse(responseCode = "200", description = "Provider successfully updated")
     @ApiResponse(responseCode = "500", description = "Provider not found")
     @PatchMapping(path = "/{id}")
-    public void update(@PathVariable Integer id, @RequestBody ProviderToUpdateDto newProvider) {
+    public void update(@PathVariable Integer id, @RequestBody ProviderDto newProvider) {
         providerServiceImpl.update(id, newProvider);
     }
 }
